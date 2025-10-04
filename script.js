@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- Global Variables & Helper Functions ---
-    const strapiUrl = 'http://localhost:1337';
+    const strapiUrl = 'https://worthy-oasis-c5d402c7b2.strapiapp.com';
 
     const formatDate = (dateString) => {
         if (!dateString) return '';
