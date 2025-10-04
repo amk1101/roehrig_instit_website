@@ -6,7 +6,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const serverless = require('serverless-http');
-const { MongoClient } = require('mongodb'); // Import the MongoDB driver
+const { MongoClient } = require('mongodb'); // Import the CORRECT MongoDB driver
 const sgMail = require('@sendgrid/mail');
 
 // --- Service Configuration ---
@@ -29,8 +29,10 @@ router.post('/registrations', async (req, res) => {
     try {
         // 1. Connect to the MongoDB Atlas database
         await client.connect();
-        const database = client.db("rohrig_institut_db"); // This database will be created automatically
-        const registrations = database.collection("registrations"); // This collection will be created automatically
+        
+        // Use the database and collection names you specified
+        const database = client.db("RWDB"); 
+        const registrations = database.collection("RWDB");
 
         // 2. Insert the new registration data into the collection
         const result = await registrations.insertOne(newRegistration);
