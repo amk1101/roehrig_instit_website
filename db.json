@@ -1,0 +1,55 @@
+{
+  "registrations": [
+    {
+      "registrationChoice": "Free German Language Course",
+      "fullName": "dfg",
+      "email": "dfg",
+      "organization": "dfg",
+      "jobTitle": "dfg",
+      "country": "dfg",
+      "homeTown": "dfg",
+      "birthPlace": "dfg",
+      "studyTown": "dfg",
+      "university": "dfg",
+      "languages": "dfg",
+      "referringPerson": "dfg",
+      "qualification": "Post graduate",
+      "whyAttend": "dfg",
+      "experience": "dfg",
+      "hobbies": "dfg",
+      "travelExperience": "dfg",
+      "consent": "on",
+      "id": 1759447765712
+    },
+    {
+      "registrationChoice": "Symposium: European Depression Day",
+      "fullName": "sdfsdf",
+      "email": "asdf",
+      "organization": "asdf",
+      "jobTitle": "sadf",
+      "country": "sadf",
+      "referringPerson": "asdf",
+      "seminarDetails": "Online",
+      "cmeCertificate": "Yes",
+      "infoSource": "LinkedIn",
+      "whyAttend": "sadf",
+      "consent": "on",
+      "id": 1759447848535
+    },
+    {
+      "registrationChoice": "Symposium: European Depression Day",
+      "fullName": "sdf",
+      "email": "sdf",
+      "organization": "sadf",
+      "jobTitle": "asdf",
+      "country": "asdf",
+      "referringPerson": "asdf",
+      "seminarDetails": "In Person",
+      "cmeCertificate": "Yes",
+      "infoSource": "Facebook",
+      "whyAttend": "asdf",
+      "consent": "on",
+      "id": 1759487104576
+    }
+  ]
+}

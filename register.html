@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration | Röhrig Institut</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="logo">Röhrig<span>.</span>Institut</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="programs.html">Programs</a></li>
+                    <li><a href="people.html">People</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="publications.html">Publications</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="demo.html">Demo Videos</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                   
+                </ul>
+                <a href="register.html" class="btn btn-primary">Register</a>
+            </nav>
+            <button class="mobile-menu-toggle">☰</button>
+        </div>
+    </header>
+
+<main>
+    <section class="section">
+        <div class="container fade-in">
+            <h2 id="registration-title" class="section-title">Registration</h2>
+
+            <!-- Step 1: Selection Dropdown -->
+            <div id="registration-selection" class="registration-form">
+                <div class="form-group">
+                    <label for="event-selector" style="font-size: 1.2rem; text-align: center; margin-bottom: 1rem;">What would you like to register for?</label>
+                    <select id="event-selector">
+                        <option value="" disabled selected>-- Please Select an Event or Course --</option>
+                        <option value="german-course">Free German Language Course</option>
+                        <!-- Event options will be added here by JavaScript -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- EVENT REGISTRATION FORM (with all fields) -->
+            <form id="event-registration-form" class="registration-form" novalidate style="display: none;">
+                <div class="registration-choice-display"></div>
+                <input type="hidden" name="registrationChoice" value="">
+                
+                <h3>Event Registration</h3>
+                <div class="form-group"><label for="event-fullName">Name*</label><input type="text" id="event-fullName" name="fullName" required></div>
+                <div class="form-group"><label for="event-email">Email*</label><input type="email" id="event-email" name="email" required></div>
+                <div class="form-group"><label for="event-organization">Organization*</label><input type="text" id="event-organization" name="organization" required></div>
+                <div class="form-group"><label for="event-jobTitle">Job Title/Role*</label><input type="text" id="event-jobTitle" name="jobTitle" required></div>
+                <div class="form-group"><label for="event-country">Country*</label><input type="text" id="event-country" name="country" required></div>
+                <div class="form-group"><label for="event-referringPerson">Referring person to the seminar*</label><input type="text" id="event-referringPerson" name="referringPerson" required></div>
+                <div class="form-group"><fieldset><legend>Seminar Details*</legend><div class="radio-group"><input type="radio" id="event-in-person" name="seminarDetails" value="In Person" required><label for="event-in-person">Attending in person</label></div><div class="radio-group"><input type="radio" id="event-online" name="seminarDetails" value="Online"><label for="event-online">Attending online</label></div></fieldset></div>
+                <div class="form-group"><fieldset><legend>Need a certificate with 2 CME credit points*</legend><div class="radio-group"><input type="radio" id="cme-yes" name="cmeCertificate" value="Yes" required><label for="cme-yes">Yes</label></div><div class="radio-group"><input type="radio" id="cme-no" name="cmeCertificate" value="No"><label for="cme-no">No</label></div></fieldset></div>
+                <div class="form-group"><fieldset><legend>How did you get information about the conference?*</legend><div class="radio-group"><input type="radio" id="event-info-linkedin" name="infoSource" value="LinkedIn" required><label for="event-info-linkedin">LinkedIn</label></div><div class="radio-group"><input type="radio" id="event-info-facebook" name="infoSource" value="Facebook"><label for="event-info-facebook">Facebook</label></div><div class="radio-group"><input type="radio" id="event-info-ema" name="infoSource" value="EMA website"><label for="event-info-ema">EMA website</label></div><div class="radio-group"><input type="radio" id="event-info-rohrig" name="infoSource" value="Röhrig Institut website"><label for="event-info-rohrig">Röhrig Institut website</label></div><div class="radio-group"><input type="radio" id="event-info-other" name="infoSource" value="Other"><label for="event-info-other">Other</label></div></fieldset></div>
+                <div class="form-group"><label for="event-whyAttend">Why do you want to attend this seminar?*</label><textarea id="event-whyAttend" name="whyAttend" rows="4" required></textarea></div>
+                <div class="consent-group"><input type="checkbox" id="event-consent" name="consent" required><label for="event-consent">I consent to my data being processed.*</label></div>
+                <div class="form-actions"><button type="submit" class="btn btn-primary">Submit Registration</button><button type="button" class="change-selection-btn btn btn-ghost">Change Selection</button></div>
+            </form>
+
+            <!-- LANGUAGE COURSE REGISTRATION FORM (with all fields) -->
+            <form id="course-registration-form" class="registration-form" novalidate style="display: none;">
+                <div class="registration-choice-display"></div>
+                <input type="hidden" name="registrationChoice" value="">
+
+                <h3>German Language Course Registration</h3>
+                <div class="form-group"><label for="course-fullName">Name*</label><input type="text" id="course-fullName" name="fullName" required></div>
+                <div class="form-group"><label for="course-email">Email*</label><input type="email" id="course-email" name="email" required></div>
+                <div class="form-group"><label for="course-organization">Organization*</label><input type="text" id="course-organization" name="organization" required></div>
+                <div class="form-group"><label for="course-jobTitle">Job Title/Role*</label><input type="text" id="course-jobTitle" name="jobTitle" required></div>
+                <div class="form-group"><label for="course-country">Country*</label><input type="text" id="course-country" name="country" required></div>
+                <div class="form-group"><label for="course-homeTown">Home town*</label><input type="text" id="course-homeTown" name="homeTown" required></div>
+                <div class="form-group"><label for="course-birthPlace">Birth Place*</label><input type="text" id="course-birthPlace" name="birthPlace" required></div>
+                <div class="form-group"><label for="course-studyTown">Town in which you are studying*</label><input type="text" id="course-studyTown" name="studyTown" required></div>
+                <div class="form-group"><label for="course-university">University / Institute*</label><input type="text" id="course-university" name="university" required></div>
+                <div class="form-group"><label for="course-languages">What is your mother tongue and other languages you know?*</label><input type="text" id="course-languages" name="languages" required></div>
+                <div class="form-group"><label for="course-referringPerson">Referring person*</label><input type="text" id="course-referringPerson" name="referringPerson" required></div>
+                <div class="form-group"><fieldset><legend>Qualification*</legend><div class="radio-group"><input type="radio" id="qual-12" name="qualification" value="12 Grade" required><label for="qual-12">12 Grade</label></div><div class="radio-group"><input type="radio" id="qual-uni" name="qualification" value="University"><label for="qual-uni">University</label></div><div class="radio-group"><input type="radio" id="qual-pg" name="qualification" value="Post graduate"><label for="qual-pg">Post graduate</label></div><div class="radio-group"><input type="radio" id="qual-physio" name="qualification" value="Physiotherapy"><label for="qual-physio">Physiotherapy</label></div><div class="radio-group"><input type="radio" id="qual-nursing" name="qualification" value="Nursing"><label for="qual-nursing">Nursing</label></div><div class="radio-group"><input type="radio" id="qual-mbbs" name="qualification" value="Medical Doctor MBBS"><label for="qual-mbbs">Medical Doctor MBBS</label></div><div class="radio-group"><input type="radio" id="qual-other" name="qualification" value="Other"><label for="qual-other">Other</label></div></fieldset></div>
+                <div class="form-group"><label for="course-whyAttend">Why do you want to attend this course?*</label><textarea id="course-whyAttend" name="whyAttend" rows="4" required></textarea></div>
+                <div class="form-group"><label for="course-experience">Brief note about your present work and experience*</label><textarea id="course-experience" name="experience" rows="4" required></textarea></div>
+                <div class="form-group"><label for="course-hobbies">What are your hobbies?*</label><textarea id="course-hobbies" name="hobbies" rows="3" required></textarea></div>
+                <div class="form-group"><label for="course-travelExperience">Your experience staying in other places apart from your home town/land?*</label><textarea id="course-travelExperience" name="travelExperience" rows="4" required></textarea></div>
+                <div class="consent-group"><input type="checkbox" id="course-consent" name="consent" required><label for="course-consent">I consent to my data being processed.*</label></div>
+                <div class="form-actions"><button type="submit" class="btn btn-primary">Submit Registration</button><button type="button" class="change-selection-btn btn btn-ghost">Change Selection</button></div>
+            </form>
+
+            <!-- Confirmation Message Section -->
+            <div id="confirmation-message" style="display: none;">
+                <h2>Registration Submitted! 🎉</h2>
+                <p>Thank you for your interest. We have received your details and will be in touch shortly.</p>
+                <div class="form-actions" style="justify-content: center;">
+                    <button id="register-more-btn" class="btn btn-ghost">Register for Another Event</button>
+                    <a href="index.html" class="btn btn-primary">Return to Home</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h4>Röhrig Institut</h4>
+                    <p>In collaboration with  European Medical
+Assocation , RIDM for Quality of life.</p>
+                </div>
+                <div class="footer-column">
+                    <h5>Explore</h5>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="programs.html">Programs</a></li>
+                        <li><a href="people.html">People</a></li>
+                        <li><a href="events.html">Events</a></li>
+                    </ul>
+                </div>
+                 <div class="footer-column">
+                    <h5>Legal</h5>
+                    <ul>
+                        <li><a href="impressum.html">Impressum</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>Contact</h5>
+                    <p class="no-wrap">
+                        <a href="mailto:roehrig.institut@gmail.com" >roehrig.institut@gmail.com</a><br>
+                        WhatsApp: +49 176 31217723
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Röhrig Institut GmbH (i.G.). All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
