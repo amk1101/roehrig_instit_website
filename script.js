@@ -11,11 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileMenuToggle.classList.toggle('active');
         });
 
-        // THE FIX: Close the mobile menu when a link is clicked
+        // FIX: Close the mobile menu when a link is clicked
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                }
             });
         });
     }
@@ -70,13 +72,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- Dynamic Content Loaders ---
+    const eventsApiUrl = `${strapiUrl}/api/events?populate=*`;
 
-    // 1. Load Events (for index.html and events.html)
+    // 1. Load Events
     const loadEvents = (gridElementId) => {
         const grid = document.getElementById(gridElementId);
         if (!grid) return;
         
-        fetch(`${strapiUrl}/api/events?populate=*`)
+        fetch(eventsApiUrl)
             .then(res => res.json())
             .then(responseData => {
                 const events = responseData.data;
@@ -90,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     let imageUrl = event.Image?.url ? `${strapiUrl}${event.Image.url}` : 'image.jpeg';
                     let brochureUrl = event.Brochure?.url ? `${strapiUrl}${event.Brochure.url}` : '#';
 
-                    // THE FIX: Make the brochure link smarter
                     let brochureAttributes = 'download';
                     if (brochureUrl !== '#' && !brochureUrl.toLowerCase().endsWith('.pdf')) {
                         brochureAttributes = 'target="_blank" rel="noopener noreferrer"';
@@ -138,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Load Publications
     const publicationsList = document.getElementById('publications-list');
     if (publicationsList) {
+        // According to your JSON, the endpoint is /api/news for publications, let's assume it should be /api/publications
         fetch(`${strapiUrl}/api/publications?populate=*`)
             .then(res => res.json())
             .then(responseData => {
@@ -148,6 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 publications.forEach(item => {
+                    // THE FIX: Use optional chaining (?.) and provide a default '#'
                     let pdfUrl = item.pdf_file?.url ? `${strapiUrl}${item.pdf_file.url}` : '#';
                     publicationsList.innerHTML += `
                         <div class="publication-item">
