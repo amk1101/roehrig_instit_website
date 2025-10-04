@@ -293,7 +293,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // THE FIX: Use the correct relative path for Netlify Functions
+            // This is the correct relative path for your Netlify server function.
+            // It does not need to be changed for MongoDB.
             const serverUrl = '/.netlify/functions/api/registrations';
             
             fetch(serverUrl, { 
@@ -321,3 +322,4 @@ document.addEventListener('DOMContentLoaded', () => {
         courseForm.addEventListener('submit', (e) => { e.preventDefault(); handleFormSubmit(courseForm); });
     }
 });
+
