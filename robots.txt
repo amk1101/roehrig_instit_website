@@ -1,0 +1,7 @@
+This file tells search engines which pages they can crawl.
+User-agent: *
+Allow: /
+
+This tells search engines where to find the map of your website.
+IMPORTANT: You must replace "https://www.your-domain.com" with your actual domain name.
+Sitemap: https://www.google.com/url?sa=E&source=gmail&q=https://www.roehrig-institut.de/sitemap.xml

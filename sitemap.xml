@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- 
+      IMPORTANT: You must replace "https://roehrig-institut.de" 
+      with your actual domain name on every line below. 
+    -->
+
+    <!-- Main Pages (High Priority) -->
+    <url>
+        <loc>https://roehrig-institut.de/</loc>
+        <lastmod>2025-10-04</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://roehrig-institut.de/about.html</loc>
+        <lastmod>2025-10-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://roehrig-institut.de/events.html</loc>
+        <lastmod>2025-10-04</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://roehrig-institut.de/news.html</loc>
+        <lastmod>2025-10-04</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://roehrig-institut.de/programs.html</loc>
+        <lastmod>2025-10-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://roehrig-institut.de/publications.html</loc>
+        <lastmod>2025-10-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://roehrig-institut.de/demo.html</loc>
+        <lastmod>2025-10-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://roehrig-institut.de/faq.html</loc>
+        <lastmod>2025-10-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <!-- Functional & Legal Pages (Lower Priority) -->
+    <url>
+        <loc>https://roehrig-institut.de/register.html</loc>
+        <lastmod>2025-10-04</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.4</priority>
+    </url>
+    <url>
+        <loc>https://roehrig-institut.de/impressum.html</loc>
+        <lastmod>2025-10-04</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    <url>
+        <loc>https://roehrig-institut.de/privacy.html</loc>
+        <lastmod>2025-10-04</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    <url>
+        <loc>https://roehrig-institut.de/terms.html</loc>
+        <lastmod>2025-10-04</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+</urlset>
