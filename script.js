@@ -2,13 +2,21 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- Mobile Navigation Toggle ---
+    // --- Mobile Navigation Toggle (with Fix) ---
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const navLinks = document.querySelector('.nav-links');
     if (mobileMenuToggle) {
         mobileMenuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
             mobileMenuToggle.classList.toggle('active');
+        });
+
+        // THE FIX: Close the mobile menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+            });
         });
     }
 
@@ -80,7 +88,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 events.sort((a, b) => new Date(a.Date) - new Date(b.Date));
                 events.forEach(event => {
                     let imageUrl = event.Image?.url ? `${strapiUrl}${event.Image.url}` : 'image.jpeg';
-                    let brochureUrl = event.Brochure?.url ? `${strapiUrl}${event.Brochure.url}` : 'test.pdf';
+                    let brochureUrl = event.Brochure?.url ? `${strapiUrl}${event.Brochure.url}` : '#';
+
+                    // THE FIX: Make the brochure link smarter
+                    let brochureAttributes = 'download';
+                    if (brochureUrl !== '#' && !brochureUrl.toLowerCase().endsWith('.pdf')) {
+                        brochureAttributes = 'target="_blank" rel="noopener noreferrer"';
+                    }
                     
                     grid.innerHTML += `
                         <div class="card program-card">
@@ -88,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="badge">${formatDate(event.Date)}</span>
                             <h3 class="title">${event.Title}</h3>
                             <p class="desc"><strong>Focus:</strong> ${event.Focus}. ${event.Description || ''}</p>
-                            <a href="${brochureUrl}" class="download-link" download>Download Brochure</a>
+                            <a href="${brochureUrl}" class="download-link" ${brochureAttributes}>Download Brochure</a>
                             <a href="register.html?register_for=event-${event.id}" class="btn btn-primary" style="margin-top: 15px;">Register Now</a>
                         </div>
                     `;
@@ -105,14 +119,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Load Program Page Info
     const nextClassContainer = document.getElementById('next-class-container');
     if (nextClassContainer) {
-        // THE FIX: Use the correct API endpoint from your JSON
         fetch(`${strapiUrl}/api/programs`)
             .then(res => res.json())
             .then(responseData => {
-                // THE FIX: Get the first item from the data array
                 const programInfo = responseData.data[0]; 
-                
-                // THE FIX: Check for the correct field names: 'Program_date' and 'topic'
                 if (programInfo && programInfo.Program_date && programInfo.topic) {
                     nextClassContainer.innerHTML = `
                         <strong>Next Class:</strong> ${programInfo.topic}<br>
@@ -279,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Please fill all required fields marked with *.');
                 return;
             }
-            fetch('http://localhost:3000/registrations', {
+            fetch('http://localhost:3000/registrations', { // NOTE: This still points to your local server. Change this when you go live.
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', },
                 body: JSON.stringify(data),
