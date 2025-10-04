@@ -90,8 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 events.sort((a, b) => new Date(a.Date) - new Date(b.Date));
                 events.forEach(event => {
-                    let imageUrl = event.Image?.url ? `${strapiUrl}${event.Image.url}` : 'image.jpeg';
-                    let brochureUrl = event.Brochure?.url ? `${strapiUrl}${event.Brochure.url}` : '#';
+                    let imageUrl = event.Image?.url ? event.Image.url : 'image.jpeg';
+                    let brochureUrl = event.Brochure?.url ? event.Brochure.url : '#';
 
                     // THE FIX: Make the brochure link smarter
                     let brochureAttributes = 'download';
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 publications.forEach(item => {
-                    let pdfUrl = item.pdf_file?.url ? `${strapiUrl}${item.pdf_file.url}` : '#';
+                    let pdfUrl = item.pdf_file?.url ? item.pdf_file.url : '#';
                     publicationsList.innerHTML += `
                         <div class="publication-item">
                             <div class="publication-info">
@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        fetch(`${strapiUrl}/api/events`)
+        fetch(`${strapiUrl}/api/events?populate=*`)
             .then(res => res.json())
             .then(data => {
                 allEventsData = data.data;
@@ -292,7 +292,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Please fill all required fields marked with *.');
                 return;
             }
-            fetch('http://localhost:3000/registrations', { // NOTE: This still points to your local server. Change this for your live Netlify site.
+            // NOTE: This URL needs to be updated when you deploy your server.js
+            const serverUrl = window.location.hostname === 'localhost' ? 'http://localhost:3000/registrations' : '/.netlify/functions/api/registrations';
+            fetch(serverUrl, { 
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', },
                 body: JSON.stringify(data),
