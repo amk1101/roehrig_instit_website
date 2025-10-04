@@ -1,16 +1,16 @@
 // --- netlify/functions/api.js (Final Version with Netlify DB & SendGrid) ---
 
-// Load environment variables
+// Load environment variables for local testing
 require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
 const serverless = require('serverless-http');
-const { db } = require('@netlify/db');
-const sgMail = require('@sendgrid/mail'); // Import SendGrid
+const { db } = require('@netlify/db'); // Import the Netlify DB helper
+const sgMail = require('@sendgrid/mail');
 
 // --- Service Configuration ---
-sgMail.setApiKey(process.env.SENDGRID_API_KEY); // Configure SendGrid
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // --- App Setup ---
 const app = express();
@@ -22,33 +22,24 @@ app.use(express.json());
 // --- API Endpoint for Form Submissions ---
 router.post('/registrations', async (req, res) => {
     const newRegistration = req.body;
-    newRegistration.createdAt = new Date().toISOString();
+    newRegistration.createdAt = new Date().toISOString(); // Add a timestamp for good practice
 
     try {
-        // 1. Save data to Netlify DB
+        // 1. Create a unique key for the database entry
         const key = `registration_${Date.now()}`;
+
+        // 2. Save the new registration data to Netlify DB
         await db.set(key, newRegistration);
         console.log(`Successfully saved new registration with key: ${key}`);
 
-        // 2. After saving, define the confirmation email
+        // 3. After saving, send the confirmation email
         const msg = {
-            to: newRegistration.email, // The email address from the form
-            from: process.env.FROM_EMAIL, // Your verified sender email
+            to: newRegistration.email,
+            from: process.env.FROM_EMAIL,
             subject: 'Confirmation: Your Registration with Röhrig Institut',
-            html: `
-                <div style="font-family: Arial, sans-serif; line-height: 1.6;">
-                    <h2>Thank You for Registering, ${newRegistration.fullName}!</h2>
-                    <p>We have successfully received your registration for:</p>
-                    <p><strong>${newRegistration.registrationChoice}</strong></p>
-                    <p>We are excited to have you join us. If you have any questions, please don't hesitate to contact us.</p>
-                    <br>
-                    <p>Best regards,</p>
-                    <p>The Röhrig Institut Team</p>
-                </div>
-            `,
+            html: `<h2>Thank You for Registering, ${newRegistration.fullName}!</h2><p>We have successfully received your registration for: <strong>${newRegistration.registrationChoice}</strong></p>`,
         };
 
-        // 3. Send the email
         await sgMail.send(msg);
         console.log('Confirmation email sent successfully!');
 
@@ -62,5 +53,6 @@ router.post('/registrations', async (req, res) => {
 });
 
 // --- Netlify Configuration ---
+// This tells Netlify to handle routes that start with /.netlify/functions/api
 app.use('/.netlify/functions/api', router);
 module.exports.handler = serverless(app);

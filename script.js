@@ -292,20 +292,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Please fill all required fields marked with *.');
                 return;
             }
-            // NOTE: This URL needs to be updated when you deploy your server.js
-            const serverUrl = window.location.hostname === 'localhost' ? 'http://localhost:3000/registrations' : '/.netlify/functions/api/registrations';
+
+            // THE FIX: Use the correct relative path for Netlify Functions
+            const serverUrl = '/.netlify/functions/api/registrations';
+            
             fetch(serverUrl, { 
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', },
                 body: JSON.stringify(data),
-            }).then(response => response.json()).then(newSubmission => {
-                console.log('Success! Data saved:', newSubmission);
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.statusText}`);
+                }
+                return response.json();
+            }).then(newSubmission => {
+                console.log('Success! Data sent to function:', newSubmission);
                 formElement.style.display = 'none';
                 registrationTitle.style.display = 'none';
                 confirmationMessage.style.display = 'block';
             }).catch(error => {
-                console.error('Error:', error);
-                alert('There was an error submitting your form. Please try again.');
+                console.error('Error submitting form:', error);
+                alert('There was an error submitting your form. Please check the console for details.');
             });
             formElement.reset();
         };
