@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileMenuToggle.classList.toggle('active');
         });
 
-        // FIX: Close the mobile menu when a link is clicked
+        // THE FIX: Close the mobile menu when a link is clicked
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 if (navLinks.classList.contains('active')) {
@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     let imageUrl = event.Image?.url ? `${strapiUrl}${event.Image.url}` : 'image.jpeg';
                     let brochureUrl = event.Brochure?.url ? `${strapiUrl}${event.Brochure.url}` : '#';
 
+                    // THE FIX: Make the brochure link smarter
                     let brochureAttributes = 'download';
                     if (brochureUrl !== '#' && !brochureUrl.toLowerCase().endsWith('.pdf')) {
                         brochureAttributes = 'target="_blank" rel="noopener noreferrer"';
@@ -140,7 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Load Publications
     const publicationsList = document.getElementById('publications-list');
     if (publicationsList) {
-        // According to your JSON, the endpoint is /api/news for publications, let's assume it should be /api/publications
         fetch(`${strapiUrl}/api/publications?populate=*`)
             .then(res => res.json())
             .then(responseData => {
@@ -151,7 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 publications.forEach(item => {
-                    // THE FIX: Use optional chaining (?.) and provide a default '#'
                     let pdfUrl = item.pdf_file?.url ? `${strapiUrl}${item.pdf_file.url}` : '#';
                     publicationsList.innerHTML += `
                         <div class="publication-item">
@@ -293,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Please fill all required fields marked with *.');
                 return;
             }
-            fetch('http://localhost:3000/registrations', { // NOTE: This still points to your local server. Change this when you go live.
+            fetch('http://localhost:3000/registrations', { // NOTE: This still points to your local server. Change this for your live Netlify site.
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', },
                 body: JSON.stringify(data),
