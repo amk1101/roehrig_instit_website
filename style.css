@@ -936,3 +936,50 @@ html {
 .news-content p:last-child {
     margin-bottom: 0;
 }
+
+/* --- Styles for the RIDM Info Box --- */
+.info-box {
+    background-color: var(--background-light);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--brand-blue); /* Adds a nice accent */
+    border-radius: 12px;
+    padding: 25px;
+    margin: 30px auto; /* Centers the box */
+    text-align: left; /* Keeps text inside the box readable */
+    max-width: 700px;
+}
+
+.info-box p {
+    margin-bottom: 0.75rem;
+    color: var(--text-muted);
+}
+
+.info-box p:last-child {
+    margin-bottom: 0;
+}
+
+.info-box strong {
+    color: var(--text-dark);
+}
+/* --- Styles for the Aligned Info Table --- */
+.info-table {
+    width: 100%;
+    border-collapse: collapse; /* Removes space between table cells */
+}
+
+.info-table td {
+    padding: 10px 0; /* Adds vertical spacing for each row */
+    vertical-align: top; /* Aligns text to the top, important for multi-line content */
+    border-bottom: 1px solid var(--border-color); /* Adds a subtle separator line */
+}
+
+.info-table tr:last-child td {
+    border-bottom: none; /* Removes the line from the very last item */
+}
+
+/* Style for the left column (the labels) */
+.info-table td:first-child {
+    width: 200px; /* Sets a fixed width to create the straight vertical line */
+    font-weight: bold;
+    color: var(--text-dark);
+}
