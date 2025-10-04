@@ -6,8 +6,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const serverless = require('serverless-http');
-// THE FIX: The 'db' object is provided by Netlify's environment, so we do not 'require' it here.
-// const { db } = require('@netlify/db'); // This incorrect line is now removed.
+const { db } = require('@netlify/db'); // This line is CORRECT. We keep it. It's provided by the Netlify build environment.
 const sgMail = require('@sendgrid/mail');
 
 // --- Service Configuration ---
@@ -22,9 +21,6 @@ app.use(express.json());
 
 // --- API Endpoint for Form Submissions ---
 router.post('/registrations', async (req, res) => {
-    // THE FIX: We get the 'db' object from the Netlify context.
-    const { db } = require('@netlify/db'); 
-
     const newRegistration = req.body;
     newRegistration.createdAt = new Date().toISOString();
 
