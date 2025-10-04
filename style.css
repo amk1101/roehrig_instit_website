@@ -192,7 +192,8 @@ body {
     transition: var(--transition-fast);
     position: relative;
     padding: 5px 0;
-    white-space: nowrap; /* <-- This is the new line that fixes the text wrapping */
+    white-space: nowrap;
+    z-index: 999; /* <-- This is the new line that fixes the text wrapping */
 }
 
 .nav-links a::after {
