@@ -1,43 +1,64 @@
-// Load environment variables
+// --- netlify/functions/api.js (Final Version with MongoDB) ---
+
+// Load environment variables from .env file
 require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
-const serverless = require('serverless-http'); // New package
+const serverless = require('serverless-http');
+const { MongoClient } = require('mongodb'); // Import the MongoDB driver
 const sgMail = require('@sendgrid/mail');
 
+// --- Service Configuration ---
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const mongoUri = process.env.MONGODB_URI;
+const client = new MongoClient(mongoUri);
 
+// --- App Setup ---
 const app = express();
-const router = express.Router(); // Use an Express router
+const router = express.Router();
 
 app.use(cors());
 app.use(express.json());
 
-// This is where your form will send data
-router.post('/registrations', (req, res) => {
+// --- API Endpoint for Form Submissions ---
+router.post('/registrations', async (req, res) => {
     const newRegistration = req.body;
-    console.log("Received new registration:", newRegistration);
+    newRegistration.createdAt = new Date(); // Add a timestamp for good practice
 
-    const msg = {
-        to: newRegistration.email,
-        from: process.env.FROM_EMAIL,
-        subject: 'Confirmation: Your Registration with Röhrig Institut',
-        html: `<h2>Thank You for Registering, ${newRegistration.fullName}!</h2><p>We have received your registration for: <strong>${newRegistration.registrationChoice}</strong></p>`,
-    };
+    try {
+        // 1. Connect to the MongoDB Atlas database
+        await client.connect();
+        const database = client.db("rohrig_institut_db"); // You can name your database anything
+        const registrations = database.collection("registrations"); // This is where the entries will be stored
 
-    sgMail.send(msg)
-        .then(() => {
-            console.log('Confirmation email sent!');
-            res.status(200).json({ message: 'Registration successful and email sent.' });
-        })
-        .catch((error) => {
-            console.error('Error sending email:', error);
-            res.status(500).json({ message: 'Error sending email.' });
-        });
+        // 2. Insert the new registration data into the collection
+        const result = await registrations.insertOne(newRegistration);
+        console.log(`Successfully saved new registration with id: ${result.insertedId}`);
+
+        // 3. After saving, send the confirmation email
+        const msg = {
+            to: newRegistration.email,
+            from: process.env.FROM_EMAIL,
+            subject: 'Confirmation: Your Registration with Röhrig Institut',
+            html: `<h2>Thank You for Registering, ${newRegistration.fullName}!</h2><p>We have successfully received your registration for: <strong>${newRegistration.registrationChoice}</strong></p>`,
+        };
+
+        await sgMail.send(msg);
+        console.log('Confirmation email sent successfully!');
+
+        // Send a success response back to the browser
+        res.status(201).json({ message: "Registration successful!", data: newRegistration });
+
+    } catch (error) {
+        console.error('An error occurred during registration:', error);
+        res.status(500).json({ message: 'An error occurred while processing your registration.' });
+    } finally {
+        // IMPORTANT: Always close the connection in a serverless environment
+        await client.close();
+    }
 });
 
-// Tell the app to use the router for all routes starting with /api
-app.use('/api/', router);
-
-// Export the handler for Netlify
+// --- Netlify Configuration ---
+app.use('/.netlify/functions/api', router);
 module.exports.handler = serverless(app);
