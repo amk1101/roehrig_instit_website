@@ -554,3 +554,18 @@ body {
         grid-template-columns: 1fr; /* Stack to a single column */
     }
 }
+/* --- Custom Styles for 'Our Current Project' Heading --- */
+.page-main-title {
+    /* 1. Make it bigger */
+    font-size: 3.5rem; 
+
+    /* 2. Use a different, more classic font */
+    font-family: Georgia, 'Times New Roman', serif;
+
+    /* 3. Make it the same color as the footer background */
+    color: var(--text-dark); 
+
+    /* 4. Reduce the space from above */
+    margin-top: -20px;
+    margin-bottom: 40px; /* Add some extra space below for balance */
+}
