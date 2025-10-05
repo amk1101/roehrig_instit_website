@@ -1,4 +1,4 @@
-/* --- Röhrig Institut | style.css --- */
+/* --- Röhrig Institut | style.css (Final Version) --- */
 
 /* 1. Global Styles & Variables
 -------------------------------------------------- */
@@ -28,7 +28,7 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 100px;
+    scroll-padding-top: 90px;
 }
 
 body {
@@ -43,9 +43,9 @@ body {
 /* 2. Layout & Reusable Components
 -------------------------------------------------- */
 .container {
-    max-width: 1100px;
+    width: 90%;
+    max-width: 1800px;
     margin: 0 auto;
-    padding: 0 20px;
 }
 
 .section {
@@ -67,8 +67,8 @@ body {
     font-size: 1.1rem;
     color: var(--text-muted);
     text-align: center;
-    margin-bottom: 30px;
-    max-width: 600px;
+    margin-bottom: 60px;
+    max-width: 700px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -85,7 +85,6 @@ body {
     grid-template-columns: repeat(2, 1fr);
 }
 
-/* Buttons */
 .btn {
     display: inline-block;
     padding: 12px 28px;
@@ -120,7 +119,6 @@ body {
     color: var(--white);
 }
 
-/* Cards */
 .card {
     background: var(--white);
     border-radius: var(--border-radius);
@@ -135,27 +133,29 @@ body {
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    border-color: var(--brand-blue);
+}
+
+.no-wrap {
+    white-space: nowrap;
 }
 
 /* 3. Header & Navigation
 -------------------------------------------------- */
-/* 3. Header & Navigation
--------------------------------------------------- */
 .header {
-    /* 'position: sticky' and 'top: 0' have been removed */
+    position: sticky;
+    top: 0;
     left: 0;
     width: 100%;
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(10px);
     z-index: 1000;
     border-bottom: 1px solid var(--border-color);
-    transition: box-shadow 0.2s;
 }
 
-/* --- Corrected Navigation Bar Styles --- */
 .navbar {
     display: flex;
-    justify-content: space-between; /* Pushes logo to the left and nav to the right */
+    justify-content: space-between;
     align-items: center;
     height: 70px;
 }
@@ -163,8 +163,7 @@ body {
 .navbar nav {
     display: flex;
     align-items: center;
-    gap: 30px;
-    margin-left: 30px; /* This creates space between the links list and the Register button */
+    gap: 20px;
 }
 
 .logo {
@@ -172,6 +171,7 @@ body {
     font-weight: 700;
     color: var(--text-dark);
     text-decoration: none;
+    flex-shrink: 0;
 }
 
 .logo span {
@@ -181,11 +181,13 @@ body {
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 25px; /* This creates space BETWEEN each text link */
-    margin: 0; /* Removed the conflicting 'auto' margin */
+    gap: 22px; /* Adjusted gap for more links */
+    margin: 0;
+    padding: 0;
 }
 
 .nav-links a {
+    font-size: 0.95rem;
     text-decoration: none;
     color: var(--text-muted);
     font-weight: 500;
@@ -193,7 +195,6 @@ body {
     position: relative;
     padding: 5px 0;
     white-space: nowrap;
-    z-index: 999; /* <-- This is the new line that fixes the text wrapping */
 }
 
 .nav-links a::after {
@@ -225,301 +226,78 @@ body {
     cursor: pointer;
 }
 
-/* Also, update the scroll-padding in the Global Styles section */
-html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 90px; /* <-- Adjusted for new nav height */
-}
-
-/* And update the mobile menu position in the Responsive section */
-@media (max-width: 992px) {
-    /* ... other responsive styles ... */
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 70px; /* <-- Adjusted for new nav height */
-        left: 0;
-        right: 0;
-        background: var(--white);
-        flex-direction: column;
-        text-align: center;
-        padding: 20px;
-        box-shadow: 0 10px 10px rgba(0,0,0,0.05);
-    }
-    /* ... other responsive styles ... */
-}
-
 /* 4. Page-Specific Sections
 -------------------------------------------------- */
+
 /* Hero Section */
-.hero {
-    padding: 100px 0;
-    text-align: center;
-}
+.hero { padding: 100px 0; text-align: center; }
+.hero .eyebrow { color: var(--brand-blue); font-weight: 600; margin-bottom: 16px; display: block; }
+.hero h1 { font-size: 3rem; margin-bottom: 20px; line-height: 1.2; }
+.hero .sub { font-size: 1.2rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 30px auto; }
+.hero-actions { display: flex; justify-content: center; gap: 16px; }
 
-.hero .eyebrow {
-    color: var(--brand-blue);
-    font-weight: 600;
-    margin-bottom: 16px;
-    display: block;
-}
+/* People Page */
+.person-card { align-items: center; text-align: center; }
+.person-card .avatar { width: 90px; height: 90px; border-radius: 50%; background: var(--brand-blue); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 600; margin-bottom: 20px; }
+.person-card .name { font-size: 1.4rem; font-weight: 600; margin: 0 0 4px 0; }
+.person-card .role { color: var(--brand-blue); font-weight: 500; margin: 0 0 16px 0; font-size: 1rem; }
+.person-email { display: block; color: var(--text-muted); font-size: 0.95rem; font-weight: 500; text-decoration: none; transition: var(--transition-fast); word-break: break-all; margin-bottom: 16px; }
+.person-email::before { content: '✉'; margin-right: 8px; color: var(--brand-blue); }
+.person-email:hover { color: var(--brand-blue); text-decoration: underline; }
+.person-card .bio { font-size: 0.95rem; color: var(--text-muted); margin: 0; width: 100%; padding-top: 16px; border-top: 1px solid var(--border-color); }
+.person-quote { font-style: italic; color: var(--text-muted); margin: 16px 0 0 0; padding: 16px 0 0 0; font-size: 0.95rem; width: 100%; border-top: 1px solid var(--border-color); }
 
-.hero h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    line-height: 1.2;
-}
-
-.hero .sub {
-    font-size: 1.2rem;
-    color: var(--text-muted);
-    max-width: 700px;
-    margin: 0 auto 30px auto;
-}
-
-.hero-actions {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-}
-
-.hero-bullets {
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    color: var(--text-muted);
-}
-
-/* About Page / Section */
-.about-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-}
-.about-content h3 {
-    margin-bottom: 1rem;
-    font-size: 1.8rem;
-}
-.about-content p, .about-content ul {
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-}
-.about-content ul {
-    list-style-position: inside;
-}
-
-/* --- Final People Card Styles (Vertical Layout) --- */
-
-.person-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Horizontally center all items */
-    text-align: center;  /* Center all text */
-}
-
-.person-card .avatar {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: var(--brand-blue);
-    color: var(--white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-}
-
-.person-card .name {
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin: 0 0 4px 0;
-}
-
-.person-card .role {
-    color: var(--brand-blue);
-    font-weight: 500;
-    margin: 0 0 16px 0;
-    font-size: 1rem;
-}
-
-.person-email {
-    display: block;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: var(--transition-fast);
-    word-break: break-all;
-    margin-bottom: 16px;
-}
-
-.person-email::before {
-    content: '✉';
-    margin-right: 8px;
-    color: var(--brand-blue);
-}
-
-.person-email:hover {
-    color: var(--brand-blue);
-    text-decoration: underline;
-}
-
-.person-card .bio {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    margin: 0;
-    width: 100%;
-    padding-top: 16px;
-    border-top: 1px solid var(--border-color);
-}
-
-.person-quote {
-    font-style: italic;
-    color: var(--text-muted);
-    margin: 16px 0 0 0;
-    padding: 16px 0 0 0;
-    font-size: 0.95rem;
-    width: 100%;
-    border-top: 1px solid var(--border-color);
-}
 /* Program/Event Cards */
-.program-card .badge {
-    align-self: flex-start;
-    background-color: var(--background-light);
-    color: var(--brand-blue);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 16px;
-}
-.program-card .title {
-    font-size: 1.4rem;
-    margin-bottom: 12px;
-}
-.program-card .desc {
-    color: var(--text-muted);
-    flex-grow: 1;
-}
-.program-card .cta {
-    margin-top: 20px;
-    color: var(--brand-blue);
-    font-weight: 600;
-    text-decoration: none;
-}
-.program-card .cta:hover {
-    text-decoration: underline;
-}
+.program-card .badge { align-self: flex-start; background-color: var(--background-light); color: var(--brand-blue); padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 16px; }
+.program-card .title { font-size: 1.4rem; margin-bottom: 12px; }
+.program-card .desc { color: var(--text-muted); flex-grow: 1; }
+.program-card .cta { margin-top: 20px; color: var(--brand-blue); font-weight: 600; text-decoration: none; }
+.program-card .cta:hover { text-decoration: underline; }
+.program-card .btn-primary { display: block; width: fit-content; margin-left: auto; margin-right: auto; }
 
 /* FAQ Section */
-.faq-item details {
-    border-bottom: 1px solid var(--border-color);
-    padding: 20px 0;
-}
-.faq-item summary {
-    font-size: 1.2rem;
-    font-weight: 600;
-    cursor: pointer;
-    list-style: none; /* Hide default arrow */
-    position: relative;
-    padding-right: 30px;
-}
-.faq-item summary::-webkit-details-marker {
-    display: none; /* Hide default arrow for Safari */
-}
-.faq-item summary::after {
-    content: '+';
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.5rem;
-    color: var(--brand-blue);
-    transition: transform 0.2s;
-}
-.faq-item details[open] summary::after {
-    transform: translateY(-50%) rotate(45deg);
-}
-.faq-item .answer {
-    padding-top: 16px;
-    color: var(--text-muted);
-}
+.faq-item details { border-bottom: 1px solid var(--border-color); padding: 20px 0; }
+.faq-item summary { font-size: 1.2rem; font-weight: 600; cursor: pointer; list-style: none; position: relative; padding-right: 30px; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; position: absolute; right: 5px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: var(--brand-blue); transition: transform 0.2s; }
+.faq-item details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.faq-item .answer { padding-top: 16px; color: var(--text-muted); }
 
 /* Registration Form */
-.registration-form {
-    max-width: 700px;
-    margin: 0 auto;
-    background: var(--white);
-    padding: 40px;
-    border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-soft);
-}
+.registration-form { max-width: 700px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: var(--border-radius); border: 1px solid var(--border-color); box-shadow: var(--shadow-soft); }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-weight: 600; margin-bottom: 8px; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 16px; border: 1px solid var(--border-color); border-radius: 12px; font-size: 1rem; font-family: inherit; transition: var(--transition-fast); }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--brand-blue); box-shadow: 0 0 0 3px rgba(31, 77, 223, 0.2); }
+.form-actions { display: flex; gap: 16px; margin-top: 30px; flex-wrap: wrap; }
+.consent-group { display: flex; align-items: center; gap: 10px; margin-top: 20px; }
+.registration-choice-display { background: var(--background-light); padding: 1rem; border-left: 4px solid var(--brand-blue); margin-bottom: 2rem; font-weight: 500; border-radius: 8px; }
+.form-group fieldset { border: none; padding: 0; margin: 0; }
+.form-group legend { font-weight: 600; margin-bottom: 12px; font-size: 1rem; }
+.radio-group, .checkbox-group { display: flex; align-items: center; margin-bottom: 8px; }
+.radio-group input, .checkbox-group input { width: auto; margin-right: 10px; }
+#confirmation-message { background: var(--background-light); border: 1px solid #dbe9ff; border-radius: var(--border-radius); padding: 50px 30px; text-align: center; }
+#confirmation-message h2 { color: var(--brand-blue); font-size: 2rem; margin-bottom: 1rem; }
+#confirmation-message p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem; }
 
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    font-size: 1rem;
-    font-family: inherit;
-    transition: var(--transition-fast);
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--brand-blue);
-    box-shadow: 0 0 0 3px rgba(31, 77, 223, 0.2);
-}
-
-.form-actions {
-    display: flex;
-    gap: 16px;
-    margin-top: 30px;
-    flex-wrap: wrap;
-}
-
-.consent-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.status-hint {
-    margin-top: 16px;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-}
-
-/* Modal */
-/* --- Updated Modal Styles (Centered) --- */
-/* --- Centered Modal Styles --- */
+/* Other Component Styles */
+.program-card-large { text-align: center; padding: 40px; }
+.next-class-info { background-color: var(--background-light); border: 1px solid var(--border-color); border-left: 4px solid var(--brand-blue); padding: 15px 20px; margin: 24px 0; border-radius: 8px; font-size: 1.1rem; font-weight: 500; color: var(--text-dark); text-align: center; }
+.newspaper-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; margin-top: 20px; }
+.newspaper-column p { margin-bottom: 1.5rem; color: var(--text-muted); line-height: 1.7; }
+.info-box { margin: 40px 0 0 0; padding: 20px; background: var(--background-light); border-left: 4px solid var(--brand-blue); border-radius: 8px; }
+.info-table { width: 100%; border-collapse: collapse; }
+.info-table td { padding: 10px 0; vertical-align: top; font-size: 0.9rem; color: var(--text-muted); border-bottom: 1px solid var(--border-color); }
+.info-table tr:last-child td { border-bottom: none; }
+.info-table td:first-child { font-weight: 600; color: var(--text-dark); width: 150px; }
+.section a:not(.btn) { color: var(--brand-blue); font-weight: 600; text-decoration: none; }
+.section a:hover:not(.btn) { text-decoration: underline; }
 
 /* 5. Footer
 -------------------------------------------------- */
 .footer {
     background: var(--text-dark);
-    color: #a0aec0; /* A light gray for muted text on dark bg */
+    color: #a0aec0;
     padding: 60px 0 30px 0;
 }
 
@@ -530,73 +308,45 @@ html {
     margin-bottom: 40px;
 }
 
-.footer-brand h4 {
-    color: var(--white);
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
+.footer-brand h4 { color: var(--white); font-size: 1.5rem; margin-bottom: 1rem; }
+.footer-column h5 { color: var(--white); font-size: 1rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+.footer-column ul { list-style: none; }
+.footer-column ul li { margin-bottom: 0.5rem; }
+.footer-column ul a, .footer p a { text-decoration: none; color: #a0aec0; transition: var(--transition-fast); }
+.footer-column ul a:hover, .footer p a:hover { color: var(--white); }
+.footer-bottom { border-top: 1px solid #4a5568; padding-top: 30px; text-align: center; font-size: 0.9rem; }
 
-.footer-column h5 {
-    color: var(--white);
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.footer-column ul {
-    list-style: none;
-}
-
-.footer-column ul li {
-    margin-bottom: 0.5rem;
-}
-
-.footer-column ul a {
-    text-decoration: none;
-    color: #a0aec0;
-    transition: var(--transition-fast);
-}
-
-.footer-column ul a:hover {
-    color: var(--white);
-}
-
-.footer-bottom {
-    border-top: 1px solid #4a5568; /* Darker border */
-    padding-top: 30px;
-    text-align: center;
-    font-size: 0.9rem;
-}
-
-/* 6. Animations & Accessibility
+/* 6. Accessibility
 -------------------------------------------------- */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Focus ring for accessibility */
 .btn:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible {
     outline: 3px solid var(--brand-blue-dark);
     outline-offset: 2px;
 }
 
-
 /* 7. Responsive Design
 -------------------------------------------------- */
+@media (max-width: 1024px) {
+    .navbar nav {
+        /* Hide the full nav container when there's not enough space */
+        display: none;
+    }
+    .mobile-menu-toggle {
+        display: block; /* Show the hamburger button earlier */
+    }
+}
+
 @media (max-width: 992px) {
     .grid-3 {
         grid-template-columns: 1fr 1fr;
     }
     .footer-grid {
         grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 820px) {
+    .newspaper-layout {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -610,254 +360,41 @@ html {
     .grid-2, .grid-3 {
         grid-template-columns: 1fr;
     }
-    .about-content {
-        grid-template-columns: 1fr;
-    }
     .hero h1 {
         font-size: 2.5rem;
     }
+    
+    /* This is the key logic for the mobile dropdown menu */
     .nav-links {
-    display: flex;
-    list-style: none;
-    gap: 22px; /* <-- Reduced the gap from 30px */
-    margin: 0 auto;
-}
+        display: none; /* Hide by default */
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        box-shadow: 0 10px 10px rgba(0,0,0,0.05);
+        gap: 0;
+    }
 
-/* Make the nav link font slightly smaller to fit better */
-.nav-links a {
-    font-size: 0.95rem; /* This is ~17px, slightly smaller than the body text */
-    text-decoration: none;
-    color: var(--text-muted);
-    font-weight: 500;
-    transition: var(--transition-fast);
-    position: relative;
-    padding: 5px 0;
-}
+    .nav-links li {
+        padding: 10px 0;
+    }
+    
     .nav-links.active {
-        display: flex;
+        display: flex; /* Show when button is clicked */
     }
-    .mobile-menu-toggle {
-        display: block;
-    }
+    
     .footer-grid {
         grid-template-columns: 1fr;
         text-align: center;
     }
 }
-/* Add this to the end of style.css */
+/* --- Styles for Publications, News, and Demo Pages --- */
 
-/* General rule for links within main text content */
-/* General rule for links within main text content, IGNORING buttons */
-.section a:not(.btn) {
-    color: var(--brand-blue);
-    font-weight: 600;
-    text-decoration: none;
-}
-.section a:hover {
-    text-decoration: underline;
-}
-
-/* Override for footer links to match footer text color */
-.footer p a {
-    color: #a0aec0; /* Matches the muted footer text */
-    font-weight: normal; /* Removes the bolding */
-    text-decoration: underline;
-}
-
-.footer p a:hover {
-    color: var(--white);
-}
-
-/* Remove styling from links that are part of a button or card CTA */
-.section a.btn, .section a.cta {
-    text-decoration: none;
-    font-weight: 600;
-}
-/* Add this to the end of style.css */
-
-/* Styling for the new visible email link on person cards */
-.person-email {
-    display: block;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    font-weight: 500;
-    text-decoration: none;
-    margin-top: 16px;
-    margin-bottom: 12px;
-    transition: var(--transition-fast);
-    word-break: break-all; /* Ensures long emails don't break the card layout */
-}
-
-/* Adds a small envelope icon before the email */
-.person-email::before {
-    content: '✉';
-    margin-right: 8px;
-    color: var(--brand-blue);
-}
-
-.person-email:hover {
-    color: var(--brand-blue);
-    text-decoration: underline;
-}
-/* Add this to the end of style.css */
-
-/* Styling for radio and checkbox groups in the form */
-.form-group fieldset {
-    border: none;
-    padding: 0;
-    margin: 0;
-}
-.form-group legend {
-    font-weight: 600;
-    margin-bottom: 12px;
-    font-size: 1rem;
-}
-.radio-group, .checkbox-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-}
-.radio-group input, .checkbox-group input {
-    width: auto;
-    margin-right: 10px;
-}
-/* Add this to the end of style.css */
-
-/* Styling for Demo Videos page */
-.video-card {
-    padding: 30px;
-    margin-bottom: 30px;
-    background: var(--white);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-soft);
-}
-
-.video-card .video-title {
-    font-size: 1.6rem;
-    margin-bottom: 8px;
-    color: var(--text-dark);
-}
-
-.video-card .video-channel {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin-bottom: 20px;
-}
-
-.video-card .video-description {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    margin-top: 20px;
-}
-
-/* Responsive YouTube Video Embed */
-.video-responsive {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
-    background: #000;
-    border-radius: 12px; /* Match card border radius */
-}
-
-.video-responsive iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-/* Add this to the end of style.css */
-
-/* Helper class to prevent text from wrapping to a new line */
-.no-wrap {
-    white-space: nowrap;
-}
-/* Add this to the end of style.css */
-
-/* Styling for the large program card on the Programs page */
-.program-card-large {
-    text-align: center;
-    padding: 40px;
-}
-
-.next-class-info {
-    background-color: var(--background-light);
-    border: 1px solid var(--border-color);
-    border-left: 4px solid var(--brand-blue);
-    padding: 15px 20px;
-    margin: 24px 0;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: var(--text-dark);
-    text-align: center;
-}
-/* --- New Registration Flow Styles --- */
-/* --- New Registration Flow Styles --- */
-.registration-choice-display {
-    background: var(--background-light);
-    padding: 1rem;
-    border-left: 4px solid var(--brand-blue);
-    margin-bottom: 2rem;
-    font-weight: 500;
-    border-radius: 8px;
-}
-#registration-choice-display strong {
-    color: var(--text-dark);
-}
-/* --- Confirmation Message Style --- */
-#confirmation-message {
-    background: var(--background-light);
-    border: 1px solid #dbe9ff;
-    border-radius: var(--border-radius);
-    padding: 50px 30px;
-    text-align: center;
-}
-#confirmation-message h2 {
-    color: var(--brand-blue);
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-#confirmation-message p {
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    margin-bottom: 2rem;
-}
-/* --- Event Card Image and Download Link Styles --- */
-
-.event-image {
-    width: calc(100% + 60px); /* Span the full card width, overriding padding */
-    height: 160px;
-    margin: -30px -30px 20px -30px; /* Negative margin to align with card edges */
-    object-fit: cover; /* Ensure image covers the area without distortion */
-    border-radius: var(--border-radius) var(--border-radius) 0 0; /* Match top-left and top-right card radius */
-}
-
-.download-link {
-    display: inline-block;
-    margin-top: 15px;
-    color: var(--text-dark);      /* Use standard text color */
-    text-decoration: none;        /* No underline by default */
-    font-weight: bold;            /* Make the text bold */
-    transition: var(--transition-fast);
-}
-
-.download-link:hover {
-    text-decoration: underline;   /* Underline on hover */
-    color: var(--brand-blue);     /* Change color on hover for better UX */
-}
-/* Center the "Register Now" button inside the event cards */
-.program-card .btn-primary {
-    display: block;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-}
-/* --- Publication Page Styles --- */
+/* == Publications Page == */
 .publication-list {
     border-top: 1px solid var(--border-color);
 }
@@ -889,17 +426,10 @@ html {
 }
 
 .publication-action .btn {
-    flex-shrink: 0; /* Prevents the button from shrinking on small screens */
+    flex-shrink: 0; /* Prevents button from shrinking */
 }
 
-/* Make the list stack on mobile */
-@media (max-width: 768px) {
-    .publication-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-    }
-}
+/* == News Page == */
 .news-feed {
     margin-top: 40px;
 }
@@ -937,49 +467,90 @@ html {
     margin-bottom: 0;
 }
 
-/* --- Styles for the RIDM Info Box --- */
-.info-box {
-    background-color: var(--background-light);
+/* == Demo Videos Page == */
+.video-card {
+    padding: 30px;
+    margin-bottom: 30px;
+    background: var(--white);
+    border-radius: var(--border-radius);
     border: 1px solid var(--border-color);
-    border-left: 4px solid var(--brand-blue); /* Adds a nice accent */
-    border-radius: 12px;
-    padding: 25px;
-    margin: 30px auto; /* Centers the box */
-    text-align: left; /* Keeps text inside the box readable */
-    max-width: 700px;
+    box-shadow: var(--shadow-soft);
 }
 
-.info-box p {
-    margin-bottom: 0.75rem;
+.video-card .video-title {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+}
+
+.video-card .video-channel {
+    font-size: 0.9rem;
     color: var(--text-muted);
+    margin-bottom: 20px;
 }
 
-.info-box p:last-child {
-    margin-bottom: 0;
+.video-card .video-description {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-top: 20px;
 }
 
-.info-box strong {
-    color: var(--text-dark);
+.video-responsive {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    border-radius: 12px;
 }
-/* --- Styles for the Aligned Info Table --- */
-.info-table {
+
+.video-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    border-collapse: collapse; /* Removes space between table cells */
+    height: 100%;
+    border: 0;
 }
 
-.info-table td {
-    padding: 10px 0; /* Adds vertical spacing for each row */
-    vertical-align: top; /* Aligns text to the top, important for multi-line content */
-    border-bottom: 1px solid var(--border-color); /* Adds a subtle separator line */
+/* Responsive stacking for publication items */
+@media (max-width: 768px) {
+    .publication-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+}
+/* --- Styles for About Us Page --- */
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    text-align: left; /* Ensures text is aligned left within columns */
 }
 
-.info-table tr:last-child td {
-    border-bottom: none; /* Removes the line from the very last item */
-}
-
-/* Style for the left column (the labels) */
-.info-table td:first-child {
-    width: 200px; /* Sets a fixed width to create the straight vertical line */
-    font-weight: bold;
+.about-content h3 {
+    font-size: 1.8rem;
     color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.about-content p, 
+.about-content ul {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.about-content ul {
+    list-style-position: inside;
+    padding-left: 0;
+}
+
+/* Responsive stacking for the About Us page */
+@media (max-width: 768px) {
+    .about-content {
+        grid-template-columns: 1fr; /* Stack to a single column */
+    }
 }
