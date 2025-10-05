@@ -1,4 +1,4 @@
-// --- netlify/functions/api.js (Final Version with MongoDB) ---
+// --- netlify/functions/api.js (Mail Functions Removed) ---
 
 // Load environment variables
 require('dotenv').config();
@@ -6,11 +6,12 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const serverless = require('serverless-http');
-const { MongoClient } = require('mongodb'); // Import the CORRECT MongoDB driver
-const sgMail = require('@sendgrid/mail');
+const { MongoClient } = require('mongodb');
 
 // --- Service Configuration ---
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// const sgMail = require('@sendgrid/mail'); // <-- REMOVED SendGrid import
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY); // <-- REMOVED SendGrid configuration
+
 const mongoUri = process.env.MONGODB_URI;
 const client = new MongoClient(mongoUri);
 
@@ -38,16 +39,16 @@ router.post('/registrations', async (req, res) => {
         const result = await registrations.insertOne(newRegistration);
         console.log(`Successfully saved new registration with id: ${result.insertedId}`);
 
-        // 3. After saving, send the confirmation email
-        const msg = {
-            to: newRegistration.email,
-            from: process.env.FROM_EMAIL,
-            subject: 'Confirmation: Your Registration with Röhrig Institut',
-            html: `<h2>Thank You for Registering, ${newRegistration.fullName}!</h2><p>We have successfully received your registration for: <strong>${newRegistration.registrationChoice}</strong></p>`,
-        };
-
-        await sgMail.send(msg);
-        console.log('Confirmation email sent successfully!');
+        // --- EMAIL SENDING LOGIC REMOVED ---
+        // const msg = {
+        //     to: newRegistration.email,
+        //     from: process.env.FROM_EMAIL,
+        //     subject: 'Confirmation: Your Registration with Röhrig Institut',
+        //     html: `<h2>Thank You for Registering, ${newRegistration.fullName}!</h2><p>We have successfully received your registration for: <strong>${newRegistration.registrationChoice}</strong></p>`,
+        // };
+        // await sgMail.send(msg);
+        // console.log('Confirmation email sent successfully!');
+        // ------------------------------------
 
         // Send a success response back to the browser
         res.status(201).json({ message: "Registration successful!", data: newRegistration });
