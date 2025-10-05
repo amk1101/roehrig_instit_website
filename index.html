@@ -9,10 +9,15 @@
     <script src="script.js" defer></script>
 </head>
 <body>
+    <!-- Gooey Lava Background -->
+
 
     <header class="header">
         <div class="container navbar">
-            <a href="index.html" class="logo">Röhrig<span>.</span>Institut</a>
+            <a href="index.html" class="logo">
+    <img src="logo.png" alt="Röhrig Institut Logo">
+    <span>Röhrig<span>.</span>Institut</span>
+</a>
             <nav>
                 <ul class="nav-links">
                     <li><a href="index.html">Startseite</a></li>
@@ -33,95 +38,157 @@
     </header>
 
 <main>
-    <!-- NEW: Left-Aligned and Updated RIDM Section -->
-    <section class="section">
+  <!-- ABOUT US (two-column: text left, highlight cards right) -->
+  <section class="section about-hero">
     <div class="container fade-in">
-        <h2 class="section-title page-main-title">Our Current Project</h2>
-        <div class="section-header">
-            <h2 class="section-title" style="text-align: left; margin-bottom: 30px;">
-                <a href="https://emanet.org/ridm/" target="_blank" rel="noopener noreferrer">RIDM</a> (Research Innovation Development Marketing) and training for quality of life.
-            </h2>
-        </div>
-        
-        <div class="newspaper-layout">
-            <div class="newspaper-column">
-                <p>
-                    Research innovation development and marketing (RIDM) is the project initiated by <strong>Dr. Vincezo Costigliola</strong> and <strong>Prof. em. (PRC) Dr. med. (Ind) Afü Röhrig</strong>, and technically guided by <strong>Dr. med. (Ger) Christopher Röhrig</strong> with focus on Research innovation development and marketing on Integrated medicine which is practicing medicine in a way that selectively incorporates elements of complementary and alternative medicine into comprehensive treatment plans alongside latest innovative methods of diagnosis and treatment for better quality of life.
-                </p>
-                <p>
-                    With the evolving scientific innovations in personalized medicine, also referred to as precision medicine, is a medical model that separates people into different groups with medical decisions, practices, interventions and/or products being tailored to the individual patient based on their predicted response or risk of disease. The terms personalized medicine, precision medicine, stratified medicine and P4 medicine are used interchangeably to describe this concept though some authors and organizations use these expressions separately to indicate particular nuances.
-                </p>
-            </div>
-            <div class="newspaper-column">
-                <p>
-                    While the tailoring of treatment to patients dates back at least to the time of Hippocrates, the term has risen in usage in recent years given the growth of new diagnostic and informatics approaches that provide an understanding of the molecular basis of disease, particularly genomics. This provides a clear evidence base on which to stratify (group) related patients. Personalized medicine has been identified as a key and prospective approach to “achieve optimal individual health decisions”, therefore overcoming the challenge to “Engineer better medicines“. The EMA team begins by connecting patients with preventive healthcare and personalized medicine using non-invasive and non-drug therapies to improve quality of life and achieve healthier living.
-                </p>
-            </div>
+      <div class="section-header align-left">
+        <span class="pill eyebrow">About Us</span>
+        <h2 class="section-title">Röhrig Institut — Advancing Quality of Life</h2>
+      </div>
+
+      <div class="grid about-hero-grid">
+        <!-- Left: text + CTAs -->
+        <div class="about-left">
+          <p class="section-subtitle align-left">
+            We focus on innovative, non-invasive, and drug-free <strong>adjuvant therapies</strong>.
+            Our clinician-ready training uniquely integrates <strong>German language</strong> and
+            <strong>cultural fluency</strong> to improve communication and care. We also collaborate
+            with <strong>Srinivas Medical University (Mangalore)</strong> on Indo–German projects
+            navigating pregnancy intolerances—turning research into better maternal health.
+          </p>
+
+          <div class="cta-row">
+            <a href="about.html" class="btn btn-primary">Explore the Institute</a>
+            <a href="people.html" class="btn btn-ghost">Meet the Team</a>
+          </div>
         </div>
 
-        <div class="info-box" style="margin-top: 40px;">
-            <table class="info-table">
-                <tbody>
-                    <tr>
-                        <td>Starting Date:</td>
-                        <td>01-10-2023</td>
-                    </tr>
-                    <tr>
-                        <td>Conceptualization:</td>
-                        <td>Dr. Vincezo Costigliola and Prof. em. (PRC) Dr. med. (Ind) Afü Röhrig</td>
-                    </tr>
-                    <tr>
-                        <td>Project Director:</td>
-                        <td>Prof. em. (PRC) Dr. med. (Ind) Afü Röhrig</td>
-                    </tr>
-                    <tr>
-                        <td>Contact Office:</td>
-                        <td>Röhrig Institut GmbH, Digital Hub, Bonner Bogen, Rheinwerkallee 6, 53227 Bonn – Germany. (Post box no 88)</td>
-                    </tr>
-                    <tr>
-                        <td>Contact Details:</td>
-                        <td>
-                            Landline: +4922241231140<br>
-                            Whatsapp: +4917631217723
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Activities:</td>
-                        <td>The project activities are hybrid, with locations at the EMA office in Brussels, Belgium and the Röhrig Institut GmbH.</td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Right: highlight cards -->
+        <div class="about-right highlights-column">
+          <article class="highlight-item card">
+            <h3 class="highlight-title">Adjuvant Therapies</h3>
+            <p class="highlight-text">Non-invasive, drug-free approaches that complement standard care.</p>
+          </article>
+          <article class="highlight-item card">
+            <h3 class="highlight-title">Training with Language</h3>
+            <p class="highlight-text">Professional upskilling with German language & cultural integration.</p>
+          </article>
+          <article class="highlight-item card">
+            <h3 class="highlight-title">Indo–German Collaboration</h3>
+            <p class="highlight-text">Joint projects with Srinivas Medical University on pregnancy intolerances.</p>
+          </article>
         </div>
-
-        <div style="text-align: center; margin-top: 40px;">
-            <a href="https://emanet.org/ridm/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Learn More About RIDM</a>
-        </div>
+      </div>
     </div>
+  </section>
+
+  <!-- RIDM (title + concise two-column text) -->
+  <section class="section ridm-section">
+    <div class="container fade-in">
+      <div class="section-header align-left">
+        <span class="pill eyebrow">Our Project</span>
+        <h2 class="section-title"><b>RIDM</b> — Research · Innovation · Development · Marketing</h2>
+      </div>
+
+      <div class="grid ridm-grid">
+        <div>
+          <p class="ridm-text">
+            Initiated by <strong>Dr. Vincezo Costigliola</strong> and
+            <strong>Prof. em. (PRC) Dr. med. (Ind) Afü Röhrig</strong>, with technical guidance from
+            <strong>Dr. med. (Ger) Christopher Röhrig</strong>, RIDM advances integrated medicine by
+            selectively incorporating complementary modalities into comprehensive plans alongside
+            innovative diagnostics and therapies.
+          </p>
+        </div>
+        <div>
+          <p class="ridm-text">
+            As precision health evolves, decisions and interventions are tailored to individual risk
+            and response. RIDM translates this into clinician-ready training and patient-ready programs,
+            emphasizing preventive, non-invasive, non-drug therapies that elevate everyday health.
+          </p>
+        </div>
+      </div>
+
+      <div class="info-box mt-40">
+        <table class="info-table">
+          <tbody>
+            <tr><td>Starting Date:</td><td>01-10-2023</td></tr>
+            <tr><td>Conceptualization:</td><td>Dr. Vincezo Costigliola and Prof. em. (PRC) Dr. med. (Ind) Afü Röhrig</td></tr>
+            <tr><td>Project Director:</td><td>Prof. em. (PRC) Dr. med. (Ind) Afü Röhrig</td></tr>
+            <tr>
+              <td>Contact Office:</td>
+              <td>Röhrig Institut GmbH, Digital Hub, Bonner Bogen, Rheinwerkallee 6, 53227 Bonn – Germany. (Post box no 88)</td>
+            </tr>
+            <tr>
+              <td>Contact Details:</td>
+              <td>Landline: +49 2224 1231140<br />WhatsApp: +49 176 31217723</td>
+            </tr>
+            <tr><td>Activities:</td><td>Hybrid across EMA (Brussels) and Röhrig Institut GmbH (Bonn).</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- CTAs moved AFTER the table -->
+      <div class="section-cta">
+        <div class="cta-row">
+          <a
+            href="https://emanet.org/ridm/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+          >
+            Learn More About RIDM
+          </a>
+          <a href="news.html" class="btn btn-ghost">View Our Other Projects</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming Events (dynamic) -->
+  <section class="section">
+    <div class="container fade-in">
+      <h2 class="section-title">Upcoming Events</h2>
+      <p class="section-subtitle">Join our free community events focused on health, well-being, and support.</p>
+
+      <div class="grid grid-3" id="home-events-grid">
+        <p>Loading events...</p>
+      </div>
+
+      <!-- centered CTA -->
+      <div class="section-cta">
+        <a href="events.html" class="btn btn-ghost">View all events</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- German Classes (programs) -->
+  <!-- German Classes (programs) -->
+<section class="section programs-section">
+  <div class="container fade-in">
+    <div class="section-header align-left">
+      <span class="pill eyebrow">Programs</span>
+      <h2 class="section-title">German for Healthcare — Learn, Practice, Care</h2>
+      <p class="section-subtitle align-left subtitle-indent">
+        Clear communication saves time and builds trust. Our German classes for medical professionals
+        blend real clinical language, cultural cues, and scenario-based practice—so you can focus on
+        patients, not translations.
+      </p>
+    </div>
+
+    <div class="section-cta">
+      <div class="cta-row">
+        <a href="programs.html" class="btn btn-ghost">Explore German Classes</a>
+        <a href="register.html?register_for=german-course" class="btn btn-primary">Register Now</a>
+      </div>
+    </div>
+  </div>
 </section>
 
-    <!-- Upcoming Events Section (Now Dynamic) -->
-    <section class="section">
-         <div class="container fade-in">
-            <h2 class="section-title">Upcoming Events</h2>
-            <p class="section-subtitle">Join our free community events focused on health, well-being, and support.</p>
-            <div class="grid grid-3" id="home-events-grid">
-                <p>Loading events...</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Teaser -->
-    <section class="section">
-        <div class="container fade-in">
-            <h2 class="section-title">About the Röhrig Institut</h2>
-            <p class="section-subtitle">Röhrig Institut GmbH advances quality of life with innovative, non-invasive, drug-free adjunct therapies. We equip healthcare professionals with up-to-date training that integrates German language and cultural fluency to improve patient outcomes. Through Indo-German collaboration with Srinivas Medical University (Mangalore), we address pregnancy intolerances, turning research into practical prenatal care. Explore our therapies, programs, and team.</p>
-            <div style="text-align: center;">
-                <a href="about.html" class="btn btn-primary">Read more about us</a>
-            </div>
-        </div>
-    </section>
-    
 </main>
+
+
+
 
     <footer class="footer">
         <div class="container">
