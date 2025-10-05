@@ -326,13 +326,12 @@ body {
 /* 7. Responsive Design
 -------------------------------------------------- */
 @media (max-width: 1024px) {
-    .navbar nav {
-        /* Hide the full nav container when there's not enough space */
-        display: none;
-    }
-    .mobile-menu-toggle {
-        display: block; /* Show the hamburger button earlier */
-    }
+  .navbar nav {
+    display: flex;              /* keep it visible */
+    align-items: center;
+    gap: 20px;
+  }
+  .mobile-menu-toggle { display: block; }
 }
 
 @media (max-width: 992px) {
@@ -365,19 +364,20 @@ body {
     }
     
     /* This is the key logic for the mobile dropdown menu */
-    .nav-links {
-        display: none; /* Hide by default */
-        position: absolute;
-        top: 70px;
-        left: 0;
-        right: 0;
-        background: var(--white);
-        flex-direction: column;
-        text-align: center;
-        padding: 20px;
-        box-shadow: 0 10px 10px rgba(0,0,0,0.05);
-        gap: 0;
-    }
+    .navbar { position: relative; }   /* anchor the dropdown */
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 70px; left: 0; right: 0;
+    background: var(--white);
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.05);
+    gap: 0;
+    z-index: 1000;                  /* ensure it sits above */
+  }
+  .nav-links.active { display: flex; }
 
     .nav-links li {
         padding: 10px 0;
