@@ -80,48 +80,77 @@ if (mobileMenuToggle && navLinks) {
 
     // 1. Load Events
     const loadEvents = (gridElementId) => {
-        const grid = document.getElementById(gridElementId);
-        if (!grid) return;
-        
-        fetch(eventsApiUrl)
-            .then(res => res.json())
-            .then(responseData => {
-                const events = responseData.data;
-                grid.innerHTML = '';
-                if (!events || events.length === 0) {
-                    grid.innerHTML = '<p>No upcoming events scheduled at this time.</p>';
-                    return;
-                }
-                events.sort((a, b) => new Date(a.Date) - new Date(b.Date));
-                events.forEach(event => {
-                    let imageUrl = event.Image?.url ? event.Image.url : 'image.jpeg';
-                    let brochureUrl = event.Brochure?.url ? event.Brochure.url : '#';
+  const grid = document.getElementById(gridElementId);
+  if (!grid) return;
 
-                    // THE FIX: Make the brochure link smarter
-                    let brochureAttributes = 'download';
-                    if (brochureUrl !== '#' && !brochureUrl.toLowerCase().endsWith('.pdf')) {
-                        brochureAttributes = 'target="_blank" rel="noopener noreferrer"';
-                    }
-                    
-                    grid.innerHTML += `
-                        <div class="card program-card">
-                            <img src="${imageUrl}" alt="Image for ${event.Title}" class="event-image">
-                            <span class="badge">${formatDate(event.Date)}</span>
-                            <h3 class="title">${event.Title}</h3>
-                            <p class="desc"><strong>Focus:</strong> ${event.Focus}. ${event.Description || ''}</p>
-                            <a href="${brochureUrl}" class="download-link" ${brochureAttributes}>Download Brochure</a>
-                            <a href="register.html?register_for=event-${event.id}" class="btn btn-primary" style="margin-top: 15px;">Jetz anmelden</a>
-                        </div>
-                    `;
-                });
-            })
-            .catch(err => {
-                console.error(`Error fetching events for ${gridElementId}:`, err);
-                grid.innerHTML = '<p>Could not load events.</p>';
-            });
-    };
-    loadEvents('home-events-grid');
-    loadEvents('events-grid');
+  fetch(eventsApiUrl)
+    .then(res => res.json())
+    .then(responseData => {
+      const events = responseData.data;
+      grid.innerHTML = "";
+
+      if (!events || events.length === 0) {
+        grid.innerHTML = '<p>Keine bevorstehenden Veranstaltungen.</p>';
+        return;
+      }
+
+      // Sort by date (earliest first)
+      events.sort((a, b) => new Date(a.Date) - new Date(b.Date));
+
+      const cards = events.map(event => {
+        const imageUrl = event.Image?.url || "image.jpeg";
+        const brochureUrl = event.Brochure?.url || "#";
+
+        // If the brochure is a PDF → download; else open in new tab
+        const isPdf = /\.pdf(\?|$)/i.test(brochureUrl);
+        const brochureAttrs = isPdf
+          ? 'download'
+          : 'target="_blank" rel="noopener noreferrer"';
+
+        const focus = event.Focus ? `<span class="event-focus">${event.Focus}</span>` : "";
+        const desc  = event.Description ? `<p class="desc">${event.Description}</p>` : "";
+
+        return `
+          <article class="card event-card">
+            <div class="event-media">
+              <img
+                class="event-image"
+                src="${imageUrl}"
+                alt="Bild zu: ${event.Title}"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            <div class="event-body">
+              <div class="event-topline">
+                <span class="badge event-date">${formatDate(event.Date)}</span>
+                ${focus}
+              </div>
+
+              <h3 class="title event-title">${event.Title}</h3>
+              ${desc}
+
+              <div class="event-actions">
+                <a href="${brochureUrl}" class="download-link" ${brochureAttrs}>Programm / Broschüre</a>
+                <a href="register.html?register_for=event-${event.id}" class="btn btn-primary">Jetzt anmelden</a>
+              </div>
+            </div>
+          </article>
+        `;
+      });
+
+      grid.innerHTML = cards.join("");
+    })
+    .catch(err => {
+      console.error(`Error fetching events for ${gridElementId}:`, err);
+      grid.innerHTML = "<p>Veranstaltungen konnten nicht geladen werden.</p>";
+    });
+};
+
+loadEvents("home-events-grid");
+loadEvents("events-grid");
+
 
     // 2. Load Program Page Info
     const nextClassContainer = document.getElementById('next-class-container');

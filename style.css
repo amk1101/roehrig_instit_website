@@ -920,3 +920,95 @@ summary:focus-visible{
     line-height: 1.85;
   }
 }
+/* === Events: polished, theme-consistent === */
+.event-card {
+  padding: 0;                  /* image flush to edges */
+  overflow: hidden;            /* clip image corners */
+  max-width: 320px;            /* ↓ smaller card */
+  margin: 0 auto;              /* center within grid column */
+}
+
+.event-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;        /* consistent height across cards */
+  background: #eef2ff;         /* pleasant placeholder tone */
+  border-bottom: 1px solid var(--border-color);
+}
+.event-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;           /* fixed visual size, no layout jump */
+  display: block;
+}
+
+.event-body {
+  padding: 18px 20px 20px;
+}
+
+.event-topline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  margin-bottom: 8px;
+}
+
+.event-date.badge {
+  background: rgba(31,77,223,.08);
+  color: var(--brand-blue);
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: .85rem;
+}
+
+.event-focus {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: .9rem;
+}
+
+.event-title {
+  margin: 4px 0 8px;
+  font-size: 1.15rem;
+  line-height: 1.35;
+  color: var(--text-dark);
+}
+
+.event-card .desc {
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0 0 14px;
+}
+
+/* Actions: brochure link left, button right; stack on mobile */
+.event-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.event-actions .download-link {
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--brand-blue);
+}
+.event-actions .download-link:hover { text-decoration: underline; }
+
+/* Responsive polish */
+@media (max-width: 768px) {
+  .event-body { padding: 16px; }
+  .event-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .event-actions .btn { width: 100%; }
+}
+@media (max-width: 768px) {
+  .event-card { max-width: 300px; }  /* a touch narrower on phones */
+}
