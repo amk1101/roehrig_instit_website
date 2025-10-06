@@ -110,7 +110,7 @@ if (mobileMenuToggle && navLinks) {
                             <h3 class="title">${event.Title}</h3>
                             <p class="desc"><strong>Focus:</strong> ${event.Focus}. ${event.Description || ''}</p>
                             <a href="${brochureUrl}" class="download-link" ${brochureAttributes}>Download Brochure</a>
-                            <a href="register.html?register_for=event-${event.id}" class="btn btn-primary" style="margin-top: 15px;">Register Now</a>
+                            <a href="register.html?register_for=event-${event.id}" class="btn btn-primary" style="margin-top: 15px;">Jetz anmelden</a>
                         </div>
                     `;
                 });
@@ -132,11 +132,11 @@ if (mobileMenuToggle && navLinks) {
                 const programInfo = responseData.data[0]; 
                 if (programInfo && programInfo.Program_date && programInfo.topic) {
                     nextClassContainer.innerHTML = `
-                        <strong>Next Class:</strong> ${programInfo.topic}<br>
+                        <strong>Nächste Deutschstunde:</strong> ${programInfo.topic}<br>
                         <span style="font-size: 1rem; color: var(--text-muted);">${formatDateTime(programInfo.Program_date)}</span>
                     `;
                 } else {
-                    nextClassContainer.innerHTML = `<p>No upcoming classes are scheduled. Please check back soon.</p>`;
+                    nextClassContainer.innerHTML = `<p>Derzeit sind keine bevorstehenden Deutschstunden geplant. Bitte schauen Sie bald wieder vorbei.</p>`;
                     nextClassContainer.style.borderLeftColor = 'var(--text-muted)';
                 }
             });
@@ -151,7 +151,7 @@ if (mobileMenuToggle && navLinks) {
                 const publications = responseData.data;
                 publicationsList.innerHTML = '';
                 if (!publications || publications.length === 0) {
-                    publicationsList.innerHTML = '<p>No publications uploaded yet.</p>';
+                    publicationsList.innerHTML = '<p>Es wurden noch keine Publikationen hochgeladen.</p>';
                     return;
                 }
                 publications.forEach(item => {
@@ -180,7 +180,7 @@ if (mobileMenuToggle && navLinks) {
                 const articles = responseData.data;
                 newsFeed.innerHTML = '';
                 if (!articles || articles.length === 0) {
-                    newsFeed.innerHTML = '<p>No news updates yet.</p>';
+                    newsFeed.innerHTML = '<p>Es gibt noch keine Projekt-Updates.</p>';
                     return;
                 }
                 articles.sort((a, b) => new Date(b.publish_date) - new Date(a.publish_date));
@@ -188,7 +188,7 @@ if (mobileMenuToggle && navLinks) {
                     newsFeed.innerHTML += `
                         <article class="news-item">
                             <h3 class="news-title">${item.Title}</h3>
-                            <p class="news-meta">Published on ${formatDate(item.publish_date)}</p>
+                            <p class="news-meta">Veröffentlicht am ${formatDate(item.publish_date)}</p>
                             <div class="news-content">
                                 <p>${(item.about || '').replace(/\n/g, '</p><p>')}</p>
                             </div>
@@ -207,7 +207,7 @@ if (mobileMenuToggle && navLinks) {
                 const videos = responseData.data;
                 demoVideosGrid.innerHTML = '';
                 if (!videos || videos.length === 0) {
-                    demoVideosGrid.innerHTML = '<p>No demo videos uploaded yet.</p>';
+                    demoVideosGrid.innerHTML = '<p>Es wurden noch keine Medien hochgeladen.</p>';
                     return;
                 }
                 videos.forEach(item => {
@@ -240,19 +240,19 @@ if (mobileMenuToggle && navLinks) {
 
         const showCorrectForm = (choiceValue) => {
             selectionDiv.style.display = 'none';
-            let choiceText = 'Free German Language Course';
+            let choiceText = 'Deutschkurs';
             if (choiceValue.startsWith('event-')) {
                 const eventId = parseInt(choiceValue.replace('event-', ''), 10);
                 const selectedEvent = allEventsData.find(e => e.id === eventId);
                 if (selectedEvent) { choiceText = "Symposium: " + selectedEvent.Title; }
             }
             if (choiceValue === 'german-course') {
-                courseForm.querySelector('.registration-choice-display').innerHTML = `You are registering for: <strong>${choiceText}</strong>`;
+                courseForm.querySelector('.registration-choice-display').innerHTML = `Sie melden sich an für <strong>${choiceText}</strong>`;
                 courseForm.querySelector('input[name="registrationChoice"]').value = choiceText;
                 courseForm.style.display = 'block';
                 eventForm.style.display = 'none';
             } else if (choiceValue.startsWith('event-')) {
-                eventForm.querySelector('.registration-choice-display').innerHTML = `You are registering for: <strong>${choiceText}</strong>`;
+                eventForm.querySelector('.registration-choice-display').innerHTML = `Sie melden sich an für <strong>${choiceText}</strong>`;
                 eventForm.querySelector('input[name="registrationChoice"]').value = choiceText;
                 eventForm.style.display = 'block';
                 courseForm.style.display = 'none';
