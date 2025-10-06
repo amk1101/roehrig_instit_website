@@ -800,3 +800,92 @@ summary:focus-visible{
   margin-top:-30px;
   margin-bottom:40px;
 }
+/* About grid: name areas so we can reorder on mobile */
+.about-hero-grid{
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  grid-template-areas: "left right";
+  gap: 28px;
+  align-items: start;
+}
+.about-left{ grid-area: left; }
+.about-right{ grid-area: right; }
+
+/* Subtitles: a few px past title start (essay-like indent) */
+.section-subtitle.align-left{ text-align:left; margin-left:8px; max-width:58ch; line-height:1.85; }
+
+/* Partners header (pill centered) */
+.partners-header{ text-align:center; margin:28px 0 8px; }
+
+/* CTA rows: ensure good spacing/alignment on phones */
+.cta-row{ display:flex; gap:12px; flex-wrap:wrap; }
+@media (max-width: 600px){
+  .cta-row{ flex-direction:column; align-items:stretch; gap:10px; }
+  .cta-row .btn{ width:100%; }
+}
+
+/* Mobile: cards FIRST, then text in About */
+@media (max-width: 992px){
+  .about-hero-grid{
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "right"   /* highlights column first */
+      "left";   /* then the text + buttons */
+  }
+}
+
+/* (If not already present) Partners strip centered + large logos */
+.partners-strip{
+  display:flex; justify-content:center; align-items:center; flex-wrap:wrap;
+  gap:32px; margin-top:10px;
+}
+.partners-strip a{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:10px 14px; border-radius:14px;
+  background:rgba(255,255,255,0.9);
+  border:1px solid var(--border-color);
+  box-shadow:0 4px 12px rgba(0,0,0,0.06);
+  transition:transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+.partners-strip a:hover,
+.partners-strip a:focus-visible{
+  transform:translateY(-2px);
+  box-shadow:0 12px 24px rgba(0,0,0,0.10);
+  border-color: color-mix(in srgb, var(--brand-blue) 35%, var(--border-color));
+  outline:none;
+}
+.partners-strip img{ height:68px; width:auto; object-fit:contain; }
+@media (max-width:1024px){ .partners-strip img{ height:60px; } }
+@media (max-width:768px){ .partners-strip img{ height:52px; } }
+@media (max-width:520px){ .partners-strip img{ height:46px; } }
+
+/* People page—subtle polish for social link row */
+.person-links{
+  display: flex;
+  justify-content: center;         /* aligns nicely under email */
+  gap: 12px;
+  margin: 6px 0 10px;
+}
+
+.social-link{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--brand-blue);
+  text-decoration: none;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(31,77,223,0.08);
+  border: 1px solid rgba(31,77,223,0.18);
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.social-link:hover,
+.social-link:focus-visible{
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(31,77,223,0.10);
+  border-color: color-mix(in srgb, var(--brand-blue) 30%, var(--border-color));
+  outline: none;
+}
