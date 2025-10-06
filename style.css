@@ -889,3 +889,34 @@ summary:focus-visible{
   border-color: color-mix(in srgb, var(--brand-blue) 30%, var(--border-color));
   outline: none;
 }
+
+
+/* --- RIDM: force single-column on phones/tablets --- */
+#ridm .ridm-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* desktop/tablet */
+  gap: 28px;
+}
+
+/* stack on narrower screens */
+@media (max-width: 992px) {
+  #ridm .ridm-grid {
+    grid-template-columns: 1fr !important; /* ensure no 2-col on mobile */
+  }
+  #ridm .ridm-grid > div {
+    min-width: 0; /* prevent overflow */
+  }
+}
+
+/* extra safety for very small phones */
+@media (max-width: 600px) {
+  #ridm .ridm-grid {
+    display: block !important; /* linear flow */
+  }
+  #ridm .ridm-grid > div + div {
+    margin-top: 16px; /* pleasant spacing between paras */
+  }
+  #ridm .ridm-text {
+    line-height: 1.85;
+  }
+}
