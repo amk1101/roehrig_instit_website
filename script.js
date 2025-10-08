@@ -76,61 +76,57 @@ if (mobileMenuToggle && navLinks) {
     };
 
     // --- Dynamic Content Loaders ---
-    const eventsApiUrl = `${strapiUrl}/api/events?populate=*`;
+    // --- Dynamic Content Loaders ---
+const eventsApiUrl = `${strapiUrl}/api/events?populate=*`;
 
-    // 1. Load Events
-    const loadEvents = (gridElementId) => {
+/* Helper: normalize date to start of day for reliable comparisons */
+const startOfDay = (d) => {
+  const dd = new Date(d);
+  dd.setHours(0, 0, 0, 0);
+  return dd;
+};
+
+/* === UPCOMING events (today & future), ascending by date === */
+const loadEvents = (gridElementId) => {
   const grid = document.getElementById(gridElementId);
   if (!grid) return;
 
   fetch(eventsApiUrl)
-    .then(res => res.json())
-    .then(responseData => {
-      const events = responseData.data;
-      grid.innerHTML = "";
+    .then((res) => res.json())
+    .then((responseData) => {
+      const today = startOfDay(new Date());
+      const all = responseData.data || [];
 
-      if (!events || events.length === 0) {
+      const events = all
+        .filter((e) => e?.Date && startOfDay(new Date(e.Date)) >= today)
+        .sort((a, b) => new Date(a.Date) - new Date(b.Date));
+
+      grid.innerHTML = "";
+      if (events.length === 0) {
         grid.innerHTML = '<p>Keine bevorstehenden Veranstaltungen.</p>';
         return;
       }
 
-      // Sort by date (earliest first)
-      events.sort((a, b) => new Date(a.Date) - new Date(b.Date));
-
-      const cards = events.map(event => {
+      const cards = events.map((event) => {
         const imageUrl = event.Image?.url || "image.jpeg";
         const brochureUrl = event.Brochure?.url || "#";
-
-        // If the brochure is a PDF → download; else open in new tab
         const isPdf = /\.pdf(\?|$)/i.test(brochureUrl);
-        const brochureAttrs = isPdf
-          ? 'download'
-          : 'target="_blank" rel="noopener noreferrer"';
-
+        const brochureAttrs = isPdf ? "download" : 'target="_blank" rel="noopener noreferrer"';
         const focus = event.Focus ? `<span class="event-focus">${event.Focus}</span>` : "";
-        const desc  = event.Description ? `<p class="desc">${event.Description}</p>` : "";
+        const desc = event.Description ? `<p class="desc">${event.Description}</p>` : "";
 
         return `
           <article class="card event-card">
             <div class="event-media">
-              <img
-                class="event-image"
-                src="${imageUrl}"
-                alt="Bild zu: ${event.Title}"
-                loading="lazy"
-                decoding="async"
-              />
+              <img class="event-image" src="${imageUrl}" alt="Bild zu: ${event.Title}" loading="lazy" decoding="async" />
             </div>
-
             <div class="event-body">
               <div class="event-topline">
                 <span class="badge event-date">${formatDate(event.Date)}</span>
                 ${focus}
               </div>
-
               <h3 class="title event-title">${event.Title}</h3>
               ${desc}
-
               <div class="event-actions">
                 <a href="${brochureUrl}" class="download-link" ${brochureAttrs}>Programm / Broschüre</a>
                 <a href="register.html?register_for=event-${event.id}" class="btn btn-primary">Jetzt anmelden</a>
@@ -142,14 +138,73 @@ if (mobileMenuToggle && navLinks) {
 
       grid.innerHTML = cards.join("");
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(`Error fetching events for ${gridElementId}:`, err);
       grid.innerHTML = "<p>Veranstaltungen konnten nicht geladen werden.</p>";
     });
 };
 
+/* === PAST events (strictly before today), newest first, NO registration button === */
+const loadPastEvents = (gridElementId) => {
+  const grid = document.getElementById(gridElementId);
+  if (!grid) return;
+
+  fetch(eventsApiUrl)
+    .then((res) => res.json())
+    .then((responseData) => {
+      const today = startOfDay(new Date());
+      const all = responseData.data || [];
+
+      const events = all
+        .filter((e) => e?.Date && startOfDay(new Date(e.Date)) < today)
+        .sort((a, b) => new Date(b.Date) - new Date(a.Date));
+
+      grid.innerHTML = "";
+      if (events.length === 0) {
+        grid.innerHTML = '<p>Derzeit keine vergangenen Veranstaltungen.</p>';
+        return;
+      }
+
+      const cards = events.map((event) => {
+        const imageUrl = event.Image?.url || "image.jpeg";
+        const brochureUrl = event.Brochure?.url || "#";
+        const isPdf = /\.pdf(\?|$)/i.test(brochureUrl);
+        const brochureAttrs = isPdf ? "download" : 'target="_blank" rel="noopener noreferrer"';
+        const focus = event.Focus ? `<span class="event-focus">${event.Focus}</span>` : "";
+        const desc = event.Description ? `<p class="desc">${event.Description}</p>` : "";
+
+        return `
+          <article class="card event-card">
+            <div class="event-media">
+              <img class="event-image" src="${imageUrl}" alt="Bild zu: ${event.Title}" loading="lazy" decoding="async" />
+            </div>
+            <div class="event-body">
+              <div class="event-topline">
+                <span class="badge event-date">${formatDate(event.Date)}</span>
+                ${focus}
+              </div>
+              <h3 class="title event-title">${event.Title}</h3>
+              ${desc}
+              <div class="event-actions">
+                <a href="${brochureUrl}" class="download-link" ${brochureAttrs}>Programm / Broschüre</a>
+              </div>
+            </div>
+          </article>
+        `;
+      });
+
+      grid.innerHTML = cards.join("");
+    })
+    .catch((err) => {
+      console.error(`Error fetching past events for ${gridElementId}:`, err);
+      grid.innerHTML = "<p>Vergangene Veranstaltungen konnten nicht geladen werden.</p>";
+    });
+};
+
+/* Auto-init for pages that include the grids */
 loadEvents("home-events-grid");
 loadEvents("events-grid");
+loadPastEvents("past-events-grid");
 
 
     // 2. Load Program Page Info
@@ -289,22 +344,37 @@ loadEvents("events-grid");
         };
 
         fetch(`${strapiUrl}/api/events?populate=*`)
-            .then(res => res.json())
-            .then(data => {
-                allEventsData = data.data;
-                allEventsData.forEach(event => {
-                    const option = document.createElement('option');
-                    option.value = `event-${event.id}`;
-                    option.textContent = "Symposium: " + event.Title;
-                    eventSelector.appendChild(option);
-                });
-                const urlParams = new URLSearchParams(window.location.search);
-                const registerFor = urlParams.get('register_for');
-                if (registerFor) {
-                    eventSelector.value = registerFor;
-                    showCorrectForm(registerFor);
-                }
-            });
+  .then(res => res.json())
+  .then(data => {
+    const today = (d => { const x = new Date(d); x.setHours(0,0,0,0); return x; })(new Date());
+
+    // Keep only upcoming events (>= today), sort ascending
+    const upcoming = (data.data || [])
+      .filter(e => e?.Date && ((d => { const x = new Date(d); x.setHours(0,0,0,0); return x; })(new Date(e.Date))) >= today)
+      .sort((a, b) => new Date(a.Date) - new Date(b.Date));
+
+    allEventsData = upcoming;
+
+    // Clear existing options (keep placeholder) then add only upcoming
+    // (If you want to keep the placeholder option intact, skip clearing; otherwise ensure one placeholder exists.)
+    // eventSelector.innerHTML = '<option value="" disabled selected>-- Bitte wählen Sie eine Veranstaltung oder einen Kurs --</option>';
+
+    upcoming.forEach(event => {
+      const option = document.createElement('option');
+      option.value = `event-${event.id}`;
+      option.textContent = "Symposium: " + event.Title;
+      eventSelector.appendChild(option);
+    });
+
+    // If URL param targets a past event, ignore it (won't be in `upcoming`)
+    const urlParams = new URLSearchParams(window.location.search);
+    const registerFor = urlParams.get('register_for');
+    if (registerFor && (registerFor === 'german-course' || upcoming.some(e => `event-${e.id}` === registerFor))) {
+      eventSelector.value = registerFor;
+      showCorrectForm(registerFor);
+    }
+  });
+
 
         eventSelector.addEventListener('change', () => showCorrectForm(eventSelector.value));
         const showSelectionScreen = () => {
