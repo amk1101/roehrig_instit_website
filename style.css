@@ -1012,3 +1012,53 @@ summary:focus-visible{
 @media (max-width: 768px) {
   .event-card { max-width: 300px; }  /* a touch narrower on phones */
 }
+
+/* --- Mobile navbar refinements --- */
+@media (max-width: 768px) {
+  .navbar{
+    height:56px;                   /* shorter bar */
+    padding:0 12px;                /* tighter side padding */
+  }
+
+  .logo{
+    gap:8px;
+    font-size:1.2rem;              /* smaller wordmark */
+  }
+  .logo img{
+    height:32px;                   /* smaller logo */
+    width:auto;
+  }
+
+  /* Compact the nav container spacing on mobile */
+  .navbar nav{ gap:8px; }
+
+  /* Hamburger always visible and aligned */
+  .mobile-menu-toggle{
+    display:block;
+    font-size:1.6rem;
+    line-height:1;
+    padding:6px 8px;
+    margin-left:auto;              /* push to the right edge */
+  }
+
+  /* Mobile dropdown menu (overlay under the bar) */
+  .nav-links{
+    display:none;                  /* hidden until toggled */
+    position:absolute;
+    top:56px; left:0; right:0;
+    background:#fff;
+    flex-direction:column;
+    gap:0;
+    padding:10px 14px;
+    border-bottom:1px solid var(--border-color);
+    box-shadow:0 8px 16px rgba(0,0,0,.06);
+    z-index:999;
+  }
+  .nav-links.active{ display:flex; }
+
+  .nav-links li{ padding:10px 0; }
+  .nav-links a{
+    padding:6px 0;                 /* comfy tap targets */
+    font-size:0.95rem;
+  }
+}
