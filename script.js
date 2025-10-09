@@ -283,32 +283,73 @@ loadPastEvents("past-events-grid");
     }
 
     // 5. Load Demo Videos
-    const demoVideosGrid = document.getElementById('demo-videos-grid');
-    if (demoVideosGrid) {
-        fetch(`${strapiUrl}/api/demos`)
-            .then(res => res.json())
-            .then(responseData => {
-                const videos = responseData.data;
-                demoVideosGrid.innerHTML = '';
-                if (!videos || videos.length === 0) {
-                    demoVideosGrid.innerHTML = '<p>Es wurden noch keine Medien hochgeladen.</p>';
-                    return;
-                }
-                videos.forEach(item => {
-                    const embedUrl = getYouTubeEmbedUrl(item.youtube_link);
-                    if (embedUrl) {
-                        demoVideosGrid.innerHTML += `
-                            <div class="video-card card">
-                                <h3 class="video-title">${item.Title}</h3>
-                                <div class="video-responsive">
-                                    <iframe src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                        `;
-                    }
-                });
-            });
-    }
+    // --- Media (videos) gallery with picker & highlight ---
+const demoVideosGrid = document.getElementById('demo-videos-grid');
+const videoPicker = document.getElementById('video-picker');
+
+if (demoVideosGrid) {
+  fetch(`${strapiUrl}/api/demos`)
+    .then(res => res.json())
+    .then(responseData => {
+      const videos = responseData.data;
+      demoVideosGrid.innerHTML = '';
+      if (!videos || videos.length === 0) {
+        demoVideosGrid.innerHTML = '<p>Es wurden noch keine Medien hochgeladen.</p>';
+        if (videoPicker) videoPicker.style.display = 'none';
+        return;
+      }
+
+      // Build grid + picker
+      const options = ['<option value="" selected disabled>— Bitte ein Video wählen —</option>'];
+      const cards = [];
+
+      videos.forEach(item => {
+        const embedUrl = getYouTubeEmbedUrl(item.youtube_link);
+        if (!embedUrl) return;
+
+        const cardId = `video-${item.id || Math.random().toString(36).slice(2)}`;
+        options.push(`<option value="${cardId}">${item.Title}</option>`);
+
+        cards.push(`
+          <article id="${cardId}" class="video-card card">
+            <h3 class="video-title">${item.Title}</h3>
+            <div class="video-responsive">
+              <iframe
+                src="${embedUrl}"
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </article>
+        `);
+      });
+
+      demoVideosGrid.innerHTML = cards.join('');
+
+      if (videoPicker) {
+        videoPicker.innerHTML = options.join('');
+        videoPicker.addEventListener('change', () => {
+          const targetId = videoPicker.value;
+          const card = document.getElementById(targetId);
+          if (!card) return;
+
+          // Remove old highlight
+          demoVideosGrid.querySelectorAll('.is-highlighted').forEach(el => el.classList.remove('is-highlighted'));
+
+          // Scroll and highlight
+          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          card.classList.add('is-highlighted');
+          setTimeout(() => card.classList.remove('is-highlighted'), 2500);
+        });
+      }
+    })
+    .catch(() => {
+      demoVideosGrid.innerHTML = '<p>Medien konnten nicht geladen werden.</p>';
+      if (videoPicker) videoPicker.style.display = 'none';
+    });
+}
 
     // --- Dynamic Registration Form Logic ---
     const registrationContainer = document.getElementById('registration-selection');

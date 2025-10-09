@@ -1062,3 +1062,60 @@ summary:focus-visible{
     font-size:0.95rem;
   }
 }
+
+/* Media grid */
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  .demo-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Phone: one at a time */
+@media (max-width: 600px) {
+  .demo-grid { grid-template-columns: 1fr; }
+}
+
+/* Keep your existing video-card styles; add highlight */
+.video-card.is-highlighted {
+  outline: 3px solid var(--brand-blue);
+  box-shadow: 0 12px 28px rgba(31,77,223,.15);
+  transition: outline .2s ease, box-shadow .2s ease;
+}
+/* Make media titles fit in one line inside the card */
+.video-card .video-title {
+  font-size: clamp(0.95rem, 1vw + 0.6rem, 1.1rem);
+  line-height: 1.2;
+  margin: 0 0 8px;
+  white-space: nowrap;         /* force single line */
+  overflow: hidden;            /* hide overflow */
+  text-overflow: ellipsis;     /* add … if too long */
+  max-width: 100%;
+}
+
+/* 1) Prevent grid cards from expanding the column */
+.video-card {
+  min-width: 0;            /* <-- crucial for CSS Grid */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 2) Keep the title on one line inside the card */
+.video-card .video-title {
+  display: block;
+  font-size: clamp(0.95rem, 0.9vw + 0.6rem, 1.05rem);
+  line-height: 1.2;
+  margin: 0 0 8px;
+  white-space: nowrap;      /* single line */
+  overflow: hidden;         /* hide overflow */
+  text-overflow: ellipsis;  /* show … */
+  max-width: 100%;
+}
+.media-grid {
+  align-items: start;  /* avoid vertical stretching */
+}
+

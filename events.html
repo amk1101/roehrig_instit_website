@@ -12,8 +12,8 @@
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upcoming Events | Röhrig Institut</title>
-<meta name="description" content="View our schedule of free community events and symposiums focused on mental health, nutrition, and well-being for students and professionals in Germany.">
+    <title>Veranstaltungen</title>
+<meta name="description" content="View our schedule of free community events and symposiums focused on well-being for professionals in Germany and the World.">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
@@ -32,7 +32,7 @@
                     
                     <li><a href="people.html">Team</a></li>
                     <li><a href="events.html">Veranstaltungen</a></li>
-                    <li><a href="passed_events.html">Vergangene Veranstaltungen</a></li>
+                    
                     <li><a href="publications.html">Publikationen</a></li>
                     <li><a href="news.html">Projekte</a></li>
                     <li><a href="demo.html">Medien</a></li>
@@ -45,19 +45,38 @@
     </header>
 
 <main>
-    <section class="section">
-        <div class="container fade-in">
-            <h2 class="section-title">Bevorstehende Veranstaltungen</h2>
-            <p class="section-subtitle">Nehmen Sie an unseren kostenlosen Community-Veranstaltungen teil – mit dem Schwerpunkt auf Gesundheit, Wohlbefinden und gegenseitiger Unterstützung.</p>
-            
-            <!-- This container will be filled automatically by JavaScript -->
-            <div class="grid grid-3" id="events-grid">
-                <p>Loading events...</p>
-            </div>
+  <!-- UPCOMING EVENTS -->
+  <section class="section">
+    <div class="container fade-in">
+      <h2 class="section-title">Bevorstehende Veranstaltungen</h2>
+      <p class="section-subtitle">
+        Nehmen Sie an unseren kostenlosen Community-Veranstaltungen teil – mit dem Schwerpunkt auf Gesundheit, Wohlbefinden und gegenseitiger Unterstützung.
+      </p>
 
-        </div>
-    </section>
+      <!-- Filled by JS: loadEvents('events-grid') -->
+      <div class="grid grid-3" id="events-grid">
+        <p>Loading events...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASSED EVENTS -->
+  <section class="section">
+    <div class="container fade-in">
+      <div class="section-header">
+        <span class="pill eyebrow">Vergangenes</span>
+        <h2 class="section-title">Vergangene Veranstaltungen</h2>
+      </div>
+      <p class="section-subtitle">Ein Rückblick auf unsere bisherigen Events.</p>
+
+      <!-- Filled by JS: loadPastEvents('past-events-grid') -->
+      <div class="grid grid-3" id="past-events-grid">
+        <p>Loading…</p>
+      </div>
+    </div>
+  </section>
 </main>
+
 
     <footer class="footer">
         <div class="container">

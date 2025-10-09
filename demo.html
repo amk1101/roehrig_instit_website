@@ -31,7 +31,7 @@
                     
                     <li><a href="people.html">Team</a></li>
                     <li><a href="events.html">Veranstaltungen</a></li>
-                    <li><a href="passed_events.html">Vergangene Veranstaltungen</a></li>
+                    
                     <li><a href="publications.html">Publikationen</a></li>
                     <li><a href="news.html">Projekte</a></li>
                     <li><a href="demo.html">Medien</a></li>
@@ -45,16 +45,26 @@
     </header>
 
     <main>
-    <section class="section">
-        <div class="container fade-in" style="max-width: 900px;">
-            <h2 class="section-title">Medien</h2>
-            <p class="section-subtitle">Sehen Sie unsere Konferenzen, Vorträge und Highlights.</p>
-            <div id="demo-videos-grid">
-                <p>Loading videos...</p>
-            </div>
-        </div>
-    </section>
+  <section class="section">
+    <div class="container fade-in" style="max-width: 1100px;">
+      <h2 class="section-title">Medien</h2>
+      <p class="section-subtitle">Sehen Sie unsere Konferenzen, Vorträge und Highlights.</p>
+
+      <!-- NEW: video picker -->
+      <div class="form-group" style="margin-bottom:16px;">
+        <label for="video-picker" style="font-weight:600;">Video auswählen</label>
+        <select id="video-picker" style="width:100%;padding:10px 12px;border:1px solid var(--border-color);border-radius:12px;">
+          <option value="" selected disabled>— Bitte ein Video wählen —</option>
+        </select>
+      </div>
+
+      <div id="demo-videos-grid" class="demo-grid">
+        <p>Loading videos...</p>
+      </div>
+    </div>
+  </section>
 </main>
+
 
     <footer class="footer">
         <div class="container">
